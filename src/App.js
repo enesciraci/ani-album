@@ -65,7 +65,7 @@ export default function App() {
 
   return (
     <div style={{
-      backgroundImage: 'url("/floral-bg.png")',
+      backgroundImage: 'url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freevector.com%2Fflower-background-vector-30140&psig=AOvVaw3yI_sjCIR1q5u0SZ83rrUh&ust=1751289467470000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNDUhevblo4DFQAAAAAdAAAAABAE)',
       backgroundRepeat: 'repeat',
       backgroundSize: 'contain',
       minHeight: '100vh',
