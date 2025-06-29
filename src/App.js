@@ -7,7 +7,7 @@ export default function App() {
   const [message, setMessage] = useState('');
   const [gallery, setGallery] = useState([]);
   const [uploader, setUploader] = useState('');
-  const [selectedImage, setSelectedImage] = useState(null); // 💡 Yeni eklendi
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     fetchImages();
@@ -19,11 +19,8 @@ export default function App() {
       .select('*')
       .order('created_at', { ascending: false });
 
-    if (error) {
-      console.error('Veri alınamadı:', error.message);
-    } else {
-      setGallery(data);
-    }
+    if (!error) setGallery(data);
+    else console.error('Veri alınamadı:', error.message);
   };
 
   const handleFileChange = (e) => {
@@ -32,18 +29,15 @@ export default function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedFile) {
-      setMessage('Lütfen bir fotoğraf seçin.');
-      return;
-    }
+    if (!selectedFile) return setMessage('Lütfen bir fotoğraf seçin.');
 
     const reader = new FileReader();
     reader.onload = async () => {
-      const base64Image = reader.result;
+      const base64 = reader.result;
 
       const { error } = await supabase.from('images').insert([
         {
-          image_url: base64Image,
+          image_url: base64,
           uploader_name: uploader || 'Anonim',
           caption: '',
         },
@@ -62,14 +56,38 @@ export default function App() {
     reader.readAsDataURL(selectedFile);
   };
 
+  // Romantik araya serpiştirilecek notlar
+  const romanticQuotes = [
+    '💕 “Seninle her şey bir başka güzel.”',
+    '📷 “Bu karede kalbim gülümsedi.”',
+    '🌸 “Anılar, kalbin gizli çekmecesidir.”',
+    '✨ “Bu albümde her şey aşkla yazıldı.”',
+  ];
+
   return (
     <div style={{
-      background: 'linear-gradient(180deg, #fff0f5 0%, #ffe4e1 100%)',
+      backgroundImage: 'url("/floral-bg.png")',
+      backgroundRepeat: 'repeat',
       minHeight: '100vh',
       padding: '2rem',
       fontFamily: "'Segoe UI', 'Quicksand', sans-serif",
       color: '#4d4d4d',
     }}>
+      {/* Üst Şerit */}
+      <div style={{
+        textAlign: 'center',
+        fontSize: '0.9rem',
+        backgroundColor: '#ffe4e1',
+        padding: '0.5rem',
+        borderRadius: '6px',
+        marginBottom: '1rem',
+        color: '#a14c5c',
+        fontWeight: 'bold'
+      }}>
+        💌 Enes & Aleyna — 14 Eylül 2025, İstanbul
+      </div>
+
+      {/* Başlık */}
       <h1 style={{
         textAlign: 'center',
         fontFamily: "'Playfair Display', serif",
@@ -80,10 +98,25 @@ export default function App() {
         💍 Aleyna & Enes - Nişan Anı Albümü
       </h1>
 
-      <p style={{ textAlign: 'center', marginBottom: '2rem', fontStyle: 'italic' }}>
-        “Bu anları bizimle paylaştığınız için sonsuz teşekkürler...”
+      {/* Açılış Notu */}
+      <p style={{
+        textAlign: 'center',
+        maxWidth: '600px',
+        margin: '0 auto 2rem',
+        padding: '1rem',
+        fontStyle: 'italic',
+        fontSize: '1rem',
+        color: '#5a5a5a',
+        backgroundColor: '#fff8fb',
+        borderLeft: '4px solid #ffb6c1',
+        borderRadius: '8px'
+      }}>
+        “14 Eylül 2025... Birlikte çıktığımız bu yolda ilk adımın anıları burada birikti.
+        Her karede biraz heyecan, biraz kahkaha, çokça sevgi var.
+        Bu sayfada yalnızca fotoğraflar değil; kalplerimiz de paylaşılıyor.”
       </p>
 
+      {/* Form */}
       <form onSubmit={handleSubmit} style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <input
           type="text"
@@ -140,14 +173,16 @@ export default function App() {
         color: message.includes('başarı') ? '#28a745' : '#c0392b'
       }}>{message}</p>}
 
+      {/* Galeri Başlığı */}
       <h2 style={{
         fontFamily: "'Playfair Display', serif",
         fontSize: '1.8rem',
         textAlign: 'center',
         color: '#9c6f73',
         marginTop: '3rem'
-      }}>🎞️ Albüm</h2>
+      }}>📸 Anılarımızdan Birkaç Sayfa</h2>
 
+      {/* Galeri */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
@@ -156,34 +191,48 @@ export default function App() {
         padding: '1rem'
       }}>
         {gallery.map((item, i) => (
-          <div key={item.id}
-            style={{
-              background: '#fff',
-              padding: '12px',
-              borderRadius: '12px',
-              boxShadow: '0 4px 8px rgba(0,0,0,0.15)',
-              border: '1px solid #ddd',
-              textAlign: 'center',
-              fontFamily: "'Courier New', Courier, monospace",
-              width: '160px',
-              transform: `rotate(${i % 2 === 0 ? '-2deg' : '2deg'})`,
-              cursor: 'pointer'
-            }}
-            onClick={() => setSelectedImage(item.image_url)}
-          >
-            <img src={item.image_url} alt={`Anı ${i + 1}`} style={{ width: '100%', borderRadius: '4px' }} />
-            <div style={{
-              marginTop: '8px',
-              fontSize: '0.8rem',
-              color: '#555'
-            }}>
-              <strong>{item.uploader_name}</strong>
+          <div key={item.id}>
+            {/* Araya romantik cümle serpiştir */}
+            {i > 0 && i % 4 === 0 && (
+              <div style={{
+                fontStyle: 'italic',
+                fontSize: '0.9rem',
+                color: '#a56363',
+                backgroundColor: '#fffafc',
+                padding: '0.5rem',
+                borderRadius: '8px',
+                textAlign: 'center',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
+              }}>
+                {romanticQuotes[Math.floor(Math.random() * romanticQuotes.length)]}
+              </div>
+            )}
+
+            <div
+              style={{
+                background: '#fff',
+                padding: '12px',
+                borderRadius: '12px',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.15)',
+                border: '1px solid #ddd',
+                textAlign: 'center',
+                fontFamily: "'Courier New', Courier, monospace",
+                width: '160px',
+                transform: `rotate(${i % 2 === 0 ? '-2deg' : '2deg'})`,
+                cursor: 'pointer'
+              }}
+              onClick={() => setSelectedImage(item.image_url)}
+            >
+              <img src={item.image_url} alt={`Anı ${i + 1}`} style={{ width: '100%', borderRadius: '4px' }} />
+              <div style={{ marginTop: '8px', fontSize: '0.8rem', color: '#555' }}>
+                <strong>{item.uploader_name}</strong>
+              </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* 💡 Modal (Büyütülmüş Fotoğraf) */}
+      {/* Lightbox */}
       {selectedImage && (
         <div style={{
           position: 'fixed',
@@ -208,6 +257,18 @@ export default function App() {
           />
         </div>
       )}
+
+      {/* Alt Not */}
+      <div style={{
+        marginTop: '3rem',
+        textAlign: 'center',
+        fontStyle: 'italic',
+        color: '#7a5c5c',
+        fontSize: '0.95rem'
+      }}>
+        💌 Sizden gelen her kare, bu hikâyenin bir parçası.  
+        Paylaştığınız her an için teşekkür ederiz.
+      </div>
     </div>
   );
 }
