@@ -3,6 +3,7 @@ import { useState } from 'react';
 export default function Home() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [message, setMessage] = useState('');
+  const [gallery, setGallery] = useState([]);
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -24,7 +25,9 @@ export default function Home() {
     });
 
     if (res.ok) {
+      const data = await res.json();
       setMessage('Fotoğraf başarıyla yüklendi!');
+      setGallery((prev) => [...prev, data.data.webContentLink]);
       setSelectedFile(null);
       document.getElementById('upload-input').value = '';
     } else {
@@ -34,23 +37,37 @@ export default function Home() {
 
   return (
     <div style={{
-      backgroundColor: '#fff5f8',
+      background: 'linear-gradient(180deg, #fff0f5 0%, #ffe4e1 100%)',
       minHeight: '100vh',
       padding: '2rem',
-      fontFamily: "'Quicksand', sans-serif"
+      fontFamily: "'Segoe UI', 'Quicksand', sans-serif",
+      color: '#4d4d4d',
     }}>
-   <img 
-  src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Ffloral-header&psig=AOvVaw2n6cV-Ov0e1W4Kv6hqrH5u&ust=1751283136390000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOD-0J7Elo4DFQAAAAAdAAAAABAE" 
-  style={{ 
-    width: '100%', 
-    maxHeight: '200px', 
-    objectFit: 'cover', 
-    marginBottom: '1rem' 
-  }} 
-/>
-      <h1 style={{ textAlign: 'center', fontFamily: "'Playfair Display', serif", fontSize: '2rem', marginBottom: '1rem' }}>
-        📸 Enes & Aleyna - Anı Albümü
+      <img 
+        src="https://i.ibb.co/zfwMCHG/flower-header-pastel.png" 
+        alt="Çiçek Başlık" 
+        style={{ 
+          width: '100%', 
+          maxHeight: '200px', 
+          objectFit: 'cover', 
+          marginBottom: '1rem',
+          borderRadius: '12px'
+        }} 
+      />
+
+      <h1 style={{
+        textAlign: 'center',
+        fontFamily: "'Playfair Display', serif",
+        fontSize: '2.5rem',
+        color: '#b76e79',
+        marginBottom: '0.5rem'
+      }}>
+        💍 Enes & Aleyna - Anı Albümü
       </h1>
+
+      <p style={{ textAlign: 'center', marginBottom: '2rem', fontStyle: 'italic' }}>
+        “Bu anları bizimle paylaştığınız için sonsuz teşekkürler...”
+      </p>
 
       <form onSubmit={handleSubmit} style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <input
@@ -60,7 +77,7 @@ export default function Home() {
           onChange={handleFileChange}
           style={{
             padding: '10px',
-            border: '2px dashed #ffb3c1',
+            border: '2px dashed #ffb6c1',
             borderRadius: '10px',
             background: '#fff',
             cursor: 'pointer',
@@ -68,27 +85,49 @@ export default function Home() {
         />
         <button type="submit" style={{
           marginLeft: '1rem',
-          backgroundColor: '#ffb3c1',
+          backgroundColor: '#ffb6c1',
           color: 'white',
           border: 'none',
           padding: '10px 16px',
           borderRadius: '8px',
-          cursor: 'pointer'
+          cursor: 'pointer',
+          fontWeight: 'bold'
         }}>
-          Yükle
+          📤 Yükle
         </button>
       </form>
 
-      {message && <p style={{ textAlign: 'center', fontWeight: 'bold' }}>{message}</p>}
+      {message && <p style={{
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: message.includes('başarı') ? '#28a745' : '#c0392b'
+      }}>{message}</p>}
 
-      <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.5rem' }}>🎞️ Albüm</h2>
+      <h2 style={{
+        fontFamily: "'Playfair Display', serif",
+        fontSize: '1.8rem',
+        textAlign: 'center',
+        color: '#9c6f73',
+        marginTop: '3rem'
+      }}>🎞️ Albüm</h2>
+
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
         gap: '1rem',
-        marginTop: '1rem'
+        marginTop: '1rem',
+        padding: '1rem'
       }}>
-        {/* Fotoğraflar burada listelenecek */}
+        {gallery.map((url, i) => (
+          <div key={i} style={{
+            borderRadius: '10px',
+            overflow: 'hidden',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+            backgroundColor: '#fff'
+          }}>
+            <img src={url} alt={`Anı ${i + 1}`} style={{ width: '100%' }} />
+          </div>
+        ))}
       </div>
     </div>
   );
