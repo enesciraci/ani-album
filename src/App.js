@@ -20,7 +20,7 @@ export default function App() {
       .order('created_at', { ascending: false });
 
     if (!error) setGallery(data);
-    else console.error('Veri alınamadı:', error.message);
+    else console.error('Veri alinmadi:', error.message);
   };
 
   const handleFileChange = (e) => {
@@ -29,24 +29,24 @@ export default function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedFile) return setMessage('Lütfen bir fotoğraf seçin.');
+    if (!selectedFile) return setMessage('Lutfen bir fotograf secin.');
 
     const reader = new FileReader();
     reader.onload = async () => {
-      const base64 = reader.result;
+      const base64Image = reader.result;
 
       const { error } = await supabase.from('images').insert([
         {
-          image_url: base64,
+          image_url: base64Image,
           uploader_name: uploader || 'Anonim',
           caption: '',
         },
       ]);
 
       if (error) {
-        setMessage('Yükleme başarısız oldu: ' + error.message);
+        setMessage('Yukleme basarisiz oldu: ' + error.message);
       } else {
-        setMessage('Fotoğraf başarıyla yüklendi!');
+        setMessage('Fotograf basariyla yuklendi!');
         setUploader('');
         setSelectedFile(null);
         document.getElementById('upload-input').value = '';
@@ -56,24 +56,23 @@ export default function App() {
     reader.readAsDataURL(selectedFile);
   };
 
-  // Romantik araya serpiştirilecek notlar
   const romanticQuotes = [
-    '💕 “Seninle her şey bir başka güzel.”',
-    '📷 “Bu karede kalbim gülümsedi.”',
-    '🌸 “Anılar, kalbin gizli çekmecesidir.”',
-    '✨ “Bu albümde her şey aşkla yazıldı.”',
+    '💕 “Seninle her sey bir baska guzel.”',
+    '📷 “Bu karede kalbim gulumsedi.”',
+    '🌸 “Anilar, kalbin gizli cekmecesidir.”',
+    '✨ “Bu albumde her sey askla yazildi.”',
   ];
 
   return (
     <div style={{
       backgroundImage: 'url("/floral-bg.png")',
       backgroundRepeat: 'repeat',
+      backgroundSize: 'contain',
       minHeight: '100vh',
       padding: '2rem',
-      fontFamily: "'Segoe UI', 'Quicksand', sans-serif",
+      fontFamily: '"Dancing Script", "Quicksand", sans-serif',
       color: '#4d4d4d',
     }}>
-      {/* Üst Şerit */}
       <div style={{
         textAlign: 'center',
         fontSize: '0.9rem',
@@ -84,21 +83,18 @@ export default function App() {
         color: '#a14c5c',
         fontWeight: 'bold'
       }}>
-        💌 Enes & Aleyna — 14 Eylül 2025, İstanbul
+        💌 Enes & Aleyna — 14 Eylul 2025, Istanbul
       </div>
 
-      {/* Başlık */}
       <h1 style={{
         textAlign: 'center',
-        fontFamily: "'Playfair Display', serif",
         fontSize: '2.5rem',
         color: '#b76e79',
         marginBottom: '0.5rem'
       }}>
-        💍 Aleyna & Enes - Nişan Anı Albümü
+        💍 Aleyna & Enes - Nisan Ani Albumu
       </h1>
 
-      {/* Açılış Notu */}
       <p style={{
         textAlign: 'center',
         maxWidth: '600px',
@@ -111,9 +107,9 @@ export default function App() {
         borderLeft: '4px solid #ffb6c1',
         borderRadius: '8px'
       }}>
-        “14 Eylül 2025... Birlikte çıktığımız bu yolda ilk adımın anıları burada birikti.
-        Her karede biraz heyecan, biraz kahkaha, çokça sevgi var.
-        Bu sayfada yalnızca fotoğraflar değil; kalplerimiz de paylaşılıyor.”
+        “14 Eylul 2025... Birlikte ciktigimiz bu yolda ilk adimin anilari burada birikti.
+        Her karede biraz heyecan, biraz kahkaha, cokca sevgi var.
+        Bu sayfada yalnizca fotograflar degil; kalplerimiz de paylasiliyor.”
       </p>
 
       {/* Form */}
