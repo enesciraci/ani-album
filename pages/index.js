@@ -46,18 +46,6 @@ export default function Home() {
       fontFamily: "'Segoe UI', 'Quicksand', sans-serif",
       color: '#4d4d4d',
     }}>
-      <img 
-        src="https://i.ibb.co/zfwMCHG/flower-header-pastel.png" 
-        alt="Çiçek Başlık" 
-        style={{ 
-          width: '100%', 
-          maxHeight: '200px', 
-          objectFit: 'cover', 
-          marginBottom: '1rem',
-          borderRadius: '12px'
-        }} 
-      />
-
       <h1 style={{
         textAlign: 'center',
         fontFamily: "'Playfair Display', serif",
