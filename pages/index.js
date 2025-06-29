@@ -40,8 +40,7 @@ export default function Home() {
       fontFamily: "'Quicksand', sans-serif"
     }}>
    <img 
-  src="https://i.ibb.co/zfwMCHG/flower-header-pastel.png" 
-  alt="Çiçek Başlık" 
+  src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Ffloral-header&psig=AOvVaw2n6cV-Ov0e1W4Kv6hqrH5u&ust=1751283136390000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCOD-0J7Elo4DFQAAAAAdAAAAABAE" 
   style={{ 
     width: '100%', 
     maxHeight: '200px', 
