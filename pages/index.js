@@ -77,19 +77,25 @@ export default function Home() {
             marginInline: 'auto'
           }}
         />
-        <input
-          id="upload-input"
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          style={{
-            padding: '10px',
-            border: '2px dashed #ffb6c1',
-            borderRadius: '10px',
-            background: '#fff',
-            cursor: 'pointer',
-          }}
-        />
+<input
+  id="upload-input"
+  type="file"
+  accept="image/*"
+  onChange={handleFileChange}
+  style={{
+    display: 'inline-block',
+    padding: '12px 16px',
+    backgroundColor: '#fff0f5',
+    border: '2px dashed #ffb6c1',
+    borderRadius: '12px',
+    color: '#b76e79',
+    fontWeight: 'bold',
+    fontFamily: "'Quicksand', sans-serif",
+    cursor: 'pointer',
+    transition: 'all 0.3s ease-in-out',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+  }}
+/>
         <button type="submit" style={{
           marginLeft: '1rem',
           backgroundColor: '#ffb6c1',
