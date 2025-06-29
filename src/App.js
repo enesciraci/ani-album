@@ -7,6 +7,7 @@ export default function App() {
   const [message, setMessage] = useState('');
   const [gallery, setGallery] = useState([]);
   const [uploader, setUploader] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null); // 💡 Yeni eklendi
 
   useEffect(() => {
     fetchImages();
@@ -40,7 +41,7 @@ export default function App() {
     reader.onload = async () => {
       const base64Image = reader.result;
 
-      const { data, error } = await supabase.from('images').insert([
+      const { error } = await supabase.from('images').insert([
         {
           image_url: base64Image,
           uploader_name: uploader || 'Anonim',
@@ -149,7 +150,7 @@ export default function App() {
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
         gap: '1rem',
         marginTop: '1rem',
         padding: '1rem'
@@ -157,43 +158,56 @@ export default function App() {
         {gallery.map((item, i) => (
           <div key={item.id}
             style={{
+              background: '#fff',
+              padding: '12px',
               borderRadius: '12px',
-              overflow: 'hidden',
-              boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-              backgroundColor: '#fff',
-              transition: 'transform 0.3s, box-shadow 0.3s',
-              position: 'relative'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.03)';
-              e.currentTarget.style.boxShadow = '0 6px 12px rgba(0,0,0,0.15)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
-            }}
-          >
-            <img src={item.image_url} alt={`Anı ${i + 1}`} style={{ width: '100%' }} />
-            <div style={{
-              padding: '0.5rem 1rem',
-              fontSize: '0.9rem',
+              boxShadow: '0 4px 8px rgba(0,0,0,0.15)',
+              border: '1px solid #ddd',
               textAlign: 'center',
-              backgroundColor: '#fff0f5',
-              borderTop: '1px solid #fcdce1'
+              fontFamily: "'Courier New', Courier, monospace",
+              width: '160px',
+              transform: `rotate(${i % 2 === 0 ? '-2deg' : '2deg'})`,
+              cursor: 'pointer'
+            }}
+            onClick={() => setSelectedImage(item.image_url)}
+          >
+            <img src={item.image_url} alt={`Anı ${i + 1}`} style={{ width: '100%', borderRadius: '4px' }} />
+            <div style={{
+              marginTop: '8px',
+              fontSize: '0.8rem',
+              color: '#555'
             }}>
-              <p style={{ margin: 0 }}><strong>{item.uploader_name}</strong></p>
-              <p style={{ margin: 0, fontSize: '0.8rem', color: '#888' }}>{new Date(item.created_at).toLocaleString('tr-TR')}</p>
-              <span style={{
-                position: 'absolute',
-                top: '10px',
-                right: '10px',
-                fontSize: '1.5rem',
-                color: '#ff6b81',
-              }}>❤️</span>
+              <strong>{item.uploader_name}</strong>
             </div>
           </div>
         ))}
       </div>
+
+      {/* 💡 Modal (Büyütülmüş Fotoğraf) */}
+      {selectedImage && (
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.75)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999
+        }}
+          onClick={() => setSelectedImage(null)}
+        >
+          <img
+            src={selectedImage}
+            alt="Büyütülmüş"
+            style={{
+              maxWidth: '90%',
+              maxHeight: '90%',
+              borderRadius: '12px',
+              boxShadow: '0 0 15px rgba(255,255,255,0.8)'
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }
