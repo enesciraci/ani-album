@@ -70,7 +70,7 @@ export default function App() {
       backgroundSize: 'contain',
       minHeight: '100vh',
       padding: '2rem',
-      fontFamily: '"Dancing Script", "Quicksand", sans-serif',
+      fontFamily: "'Great Vibes', cursive",
       color: '#4d4d4d',
     }}>
       <div style={{
@@ -90,7 +90,8 @@ export default function App() {
         textAlign: 'center',
         fontSize: '2.5rem',
         color: '#b76e79',
-        marginBottom: '0.5rem'
+        marginBottom: '0.5rem',
+        fontFamily: "'Great Vibes', cursive"
       }}>
         💍 Aleyna & Enes - Nisan Ani Albumu
       </h1>
@@ -105,7 +106,8 @@ export default function App() {
         color: '#5a5a5a',
         backgroundColor: '#fff8fb',
         borderLeft: '4px solid #ffb6c1',
-        borderRadius: '8px'
+        borderRadius: '8px',
+        fontFamily: "'Quicksand', sans-serif"
       }}>
         “14 Eylul 2025... Birlikte ciktigimiz bu yolda ilk adimin anilari burada birikti.
         Her karede biraz heyecan, biraz kahkaha, cokca sevgi var.
@@ -127,7 +129,8 @@ export default function App() {
             width: '80%',
             maxWidth: '400px',
             display: 'block',
-            marginInline: 'auto'
+            marginInline: 'auto',
+            fontFamily: "'Quicksand', sans-serif"
           }}
         />
         <input
@@ -157,7 +160,8 @@ export default function App() {
           padding: '10px 16px',
           borderRadius: '8px',
           cursor: 'pointer',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
+          fontFamily: "'Quicksand', sans-serif"
         }}>
           📤 Yükle
         </button>
@@ -166,12 +170,12 @@ export default function App() {
       {message && <p style={{
         textAlign: 'center',
         fontWeight: 'bold',
-        color: message.includes('başarı') ? '#28a745' : '#c0392b'
+        color: message.includes('başarı') ? '#28a745' : '#c0392b',
+        fontFamily: "'Quicksand', sans-serif"
       }}>{message}</p>}
 
-      {/* Galeri Başlığı */}
       <h2 style={{
-        fontFamily: "'Playfair Display', serif",
+        fontFamily: "'Great Vibes', cursive",
         fontSize: '1.8rem',
         textAlign: 'center',
         color: '#9c6f73',
@@ -188,7 +192,6 @@ export default function App() {
       }}>
         {gallery.map((item, i) => (
           <div key={item.id}>
-            {/* Araya romantik cümle serpiştir */}
             {i > 0 && i % 4 === 0 && (
               <div style={{
                 fontStyle: 'italic',
@@ -198,7 +201,8 @@ export default function App() {
                 padding: '0.5rem',
                 borderRadius: '8px',
                 textAlign: 'center',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
+                boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
+                fontFamily: "'Quicksand', sans-serif"
               }}>
                 {romanticQuotes[Math.floor(Math.random() * romanticQuotes.length)]}
               </div>
@@ -212,7 +216,7 @@ export default function App() {
                 boxShadow: '0 4px 8px rgba(0,0,0,0.15)',
                 border: '1px solid #ddd',
                 textAlign: 'center',
-                fontFamily: "'Courier New', Courier, monospace",
+                fontFamily: "'Great Vibes', cursive",
                 width: '160px',
                 transform: `rotate(${i % 2 === 0 ? '-2deg' : '2deg'})`,
                 cursor: 'pointer'
@@ -228,7 +232,6 @@ export default function App() {
         ))}
       </div>
 
-      {/* Lightbox */}
       {selectedImage && (
         <div style={{
           position: 'fixed',
@@ -254,13 +257,13 @@ export default function App() {
         </div>
       )}
 
-      {/* Alt Not */}
       <div style={{
         marginTop: '3rem',
         textAlign: 'center',
         fontStyle: 'italic',
         color: '#7a5c5c',
-        fontSize: '0.95rem'
+        fontSize: '0.95rem',
+        fontFamily: "'Quicksand', sans-serif"
       }}>
         💌 Sizden gelen her kare, bu hikâyenin bir parçası.  
         Paylaştığınız her an için teşekkür ederiz.
