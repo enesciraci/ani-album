@@ -39,7 +39,16 @@ export default function Home() {
       padding: '2rem',
       fontFamily: "'Quicksand', sans-serif"
     }}>
-      <img src="/header-flower.png" alt="Çiçek Başlık" style={{ width: '100%', maxHeight: '200px', objectFit: 'cover', marginBottom: '1rem' }} />
+   <img 
+  src="https://i.ibb.co/zfwMCHG/flower-header-pastel.png" 
+  alt="Çiçek Başlık" 
+  style={{ 
+    width: '100%', 
+    maxHeight: '200px', 
+    objectFit: 'cover', 
+    marginBottom: '1rem' 
+  }} 
+/>
       <h1 style={{ textAlign: 'center', fontFamily: "'Playfair Display', serif", fontSize: '2rem', marginBottom: '1rem' }}>
         📸 Enes & Aleyna - Anı Albümü
       </h1>
