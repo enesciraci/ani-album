@@ -9,7 +9,7 @@ export default function App() {
   const [uploader, setUploader] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
 
-    const bucketName = 'album'; // bucket ismi burada
+    const bucketName = 'images'; // bucket ismi burada
 
   useEffect(() => {
     fetchImages();
