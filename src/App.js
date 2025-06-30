@@ -9,34 +9,18 @@ export default function App() {
   const [uploader, setUploader] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
 
-    const bucketName = 'images'; // bucket ismi burada
-
   useEffect(() => {
     fetchImages();
   }, []);
 
   const fetchImages = async () => {
-    const { data, error } = await supabase.storage
-      .from(bucketName)
-      .list('', { limit: 100, sortBy: { column: 'created_at', order: 'desc' } });
+    const { data, error } = await supabase
+      .from('images')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-    if (error) {
-      console.error('Fotoğraflar alınamadı:', error.message);
-      return;
-    }
-
-    const urls = await Promise.all(
-      data.map(async (item) => {
-        const { data: urlData } = supabase.storage
-          .from(bucketName)
-          .getPublicUrl(item.name);
-        return {
-          name: item.name,
-          url: urlData.publicUrl,
-        };
-      })
-    );
-    setGallery(urls);
+    if (!error) setGallery(data);
+    else console.error('Veri alınamadı:', error.message);
   };
 
   const handleFileChange = (e) => {
@@ -45,30 +29,39 @@ export default function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (selectedFiles.length === 0) return setMessage('Lütfen fotoğraf seçin.');
+    if (selectedFiles.length === 0) return setMessage('Lütfen bir veya birden fazla fotoğraf seçin.');
 
-    setMessage('Yükleniyor...');
+    const uploads = selectedFiles.map(file => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async () => {
+          const base64Image = reader.result;
+          const { error } = await supabase.from('images').insert([{
+            image_url: base64Image,
+            uploader_name: uploader || 'Anonim',
+            caption: '',
+          }]);
 
-    for (const file of selectedFiles) {
-      const fileName = `${Date.now()}_${file.name}`;
-      const { error } = await supabase.storage
-        .from(bucketName)
-        .upload(fileName, file);
+          if (error) reject(error);
+          else resolve();
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    });
 
-      if (error) {
-        console.error('Yükleme hatası:', error.message);
-        setMessage('Bazı fotoğraflar yüklenemedi.');
-        return;
-      }
+    try {
+      await Promise.all(uploads);
+      setMessage('Tüm fotoğraflar başarıyla yüklendi!');
+      setUploader('');
+      setSelectedFiles([]);
+      document.getElementById('upload-input').value = '';
+      fetchImages();
+    } catch (err) {
+      setMessage('Bazı fotoğraflar yüklenemedi: ' + err.message);
     }
-
-    setSelectedFiles([]);
-    setUploader('');
-    document.getElementById('upload-input').value = '';
-    setMessage('Tüm fotoğraflar başarıyla yüklendi!');
-    fetchImages();
   };
-  
+
   const romanticQuotes = [
     '💕 “Seninle her şey bir başka güzel.”',
     '📷 “Bu karede kalbim gülümsedi.”',
