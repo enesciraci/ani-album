@@ -120,6 +120,34 @@ export default function App() {
         Bu sayfada yalnızca fotoğraflar değil; kalplerimiz de paylaşılıyor.”
       </p>
 
+<div style={{
+  backgroundColor: '#fffafc',
+  border: '2px dashed #ffb6c1',
+  padding: '1rem',
+  borderRadius: '12px',
+  margin: '2rem auto',
+  maxWidth: '600px',
+  fontFamily: "'Quicksand', sans-serif",
+  color: '#a14c5c',
+  textAlign: 'left',
+  boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+}}>
+  <h3 style={{ textAlign: 'center', fontSize: '1.3rem', marginBottom: '1rem' }}>📸 Fotoğraf Nasıl Yüklenir?</h3>
+  <ol style={{ paddingLeft: '1.2rem', lineHeight: '1.8' }}>
+    <li><strong>Adınızı yazın</strong> (isteğe bağlı)</li>
+    <li><strong>Bir veya daha fazla fotoğraf seçin</strong></li>
+    <li><strong>📤 Yükle</strong> butonuna tıklayın</li>
+    <li>Fotoğraf(lar)ınız birkaç saniye içinde galeriye eklenecek</li>
+  </ol>
+  <p style={{
+    marginTop: '1rem',
+    fontStyle: 'italic',
+    fontSize: '0.95rem',
+    textAlign: 'center'
+  }}>
+    💖 “Her kare bir hatıra, her yükleme bir tebessüm...”
+  </p>
+</div>
       {/* Form */}
       <form onSubmit={handleSubmit} style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <input
