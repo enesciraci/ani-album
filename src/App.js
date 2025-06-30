@@ -28,39 +28,49 @@ export default function App() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (selectedFiles.length === 0) return setMessage('Lütfen bir veya birden fazla fotoğraf seçin.');
+  e.preventDefault();
+  if (selectedFiles.length === 0) return setMessage('Lütfen bir veya birden fazla fotoğraf seçin.');
 
-    const uploads = selectedFiles.map(file => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = async () => {
-          const base64Image = reader.result;
-          const { error } = await supabase.from('images').insert([{
-            image_url: base64Image,
-            uploader_name: uploader || 'Anonim',
-            caption: '',
-          }]);
+  try {
+    for (const file of selectedFiles) {
+      const fileName = `${Date.now()}_${file.name}`;
+      const { error: uploadError } = await supabase
+        .storage
+        .from('images')
+        .upload(fileName, file);
 
-          if (error) reject(error);
-          else resolve();
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    });
+      if (uploadError) throw uploadError;
 
-    try {
-      await Promise.all(uploads);
-      setMessage('Tüm fotoğraflar başarıyla yüklendi!');
-      setUploader('');
-      setSelectedFiles([]);
-      document.getElementById('upload-input').value = '';
-      fetchImages();
-    } catch (err) {
-      setMessage('Bazı fotoğraflar yüklenemedi: ' + err.message);
+      const { data: publicUrlData } = supabase
+        .storage
+        .from('images')
+        .getPublicUrl(fileName);
+
+      const imageUrl = publicUrlData.publicUrl;
+
+      const { error: dbError } = await supabase
+        .from('images')
+        .insert([{
+          image_url: imageUrl,
+          uploader_name: uploader || 'Anonim',
+          caption: '',
+        }]);
+
+      if (dbError) throw dbError;
     }
-  };
+
+    setMessage('Tüm fotoğraflar başarıyla yüklendi!');
+    setUploader('');
+    setSelectedFiles([]);
+    document.getElementById('upload-input').value = '';
+    fetchImages();
+    setTimeout(() => {
+      galleryRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 300);
+  } catch (err) {
+    setMessage('Yükleme hatası: ' + err.message);
+  }
+};
 
   const romanticQuotes = [
     '💕 “Seninle her şey bir başka güzel.”',
