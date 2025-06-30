@@ -132,8 +132,8 @@ export default function App() {
         borderLeft: '4px solid #ffb6c1',
         borderRadius: '8px',
       }}>
-“Bugün attığımız ilk adımı, sevgiyle dolu anılarla taçlandırıyoruz.
-Bu sayfada sadece kareler değil, kalpler de paylaşılıyor.”
+“Bu özel günde attığımız ilk adımı sizlerle paylaşmak bizim için çok kıymetli.
+Her kare, sevgiyle dolu bir anı…”
 </p>
 
   <div style={{
