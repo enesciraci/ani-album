@@ -107,7 +107,7 @@ export default function App() {
         color: '#a14c5c',
         fontWeight: 'bold'
       }}>
-        💌 Enes & Aleyna — 14 Eylül 2025, İstanbul
+        💞 14 Eylül 2025 • Paşa Garden
       </div>
 
       <h1 style={{
@@ -132,9 +132,10 @@ export default function App() {
         borderLeft: '4px solid #ffb6c1',
         borderRadius: '8px',
       }}>
-        “14 Eylül 2025... Birlikte çıktığımız bu yolda ilk adımın anıları burada birikti.
-        Her karede biraz heyecan, biraz kahkaha, çokça sevgi var.
-        Bu sayfada yalnızca fotoğraflar değil; kalplerimiz de paylaşılıyor.”
+  “Bugün attığımız bu ilk adımda, sizleri de yanımızda hissetmek bizim için büyük bir mutluluk.  
+  Bu sayfa, bu özel günün en güzel anılarını bir araya getirmek için hazırlandı.  
+  Her karede biraz heyecan, biraz kahkaha, çokça sevgi var...  
+  Çünkü burada yalnızca fotoğraflar değil; kalplerimiz de paylaşılıyor.”
       </p>
 
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
