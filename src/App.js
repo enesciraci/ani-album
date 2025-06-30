@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { supabase } from './supabaseClient';
 
 export default function App() {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -7,29 +8,23 @@ export default function App() {
   const [message, setMessage] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const CLOUD_NAME = 'dwwlpbmja'; // kendi Cloudinary cloud ismin
-  const UPLOAD_PRESET = 'aleynaenesalbum'; // unsigned upload preset
-  const FOLDER_NAME = 'album'; // Cloudinary'de görsellerin olduğu klasör
+  const CLOUD_NAME = 'dwwlpbmja';
+  const UPLOAD_PRESET = 'aleynaenesalbum';
 
   useEffect(() => {
     fetchGallery();
   }, []);
 
   const fetchGallery = async () => {
-    try {
-      const res = await fetch(
-        `https://res.cloudinary.com/${CLOUD_NAME}/image/list/${FOLDER_NAME}.json`
-      );
-      if (!res.ok) throw new Error('Listeleme başarısız.');
-      const data = await res.json();
-      const formatted = data.resources.map((item) => ({
-        image_url: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${item.public_id}.${item.format}`,
-        uploader_name: 'Ziyaretçi',
-      }));
-      setGallery(formatted);
-    } catch (error) {
-      console.error('Albüm verisi çekilemedi:', error.message);
-      setMessage('Albüm yüklenemedi.');
+    const { data, error } = await supabase
+      .from('gallery')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Veri çekilemedi:', error.message);
+    } else {
+      setGallery(data);
     }
   };
 
@@ -49,16 +44,26 @@ export default function App() {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('upload_preset', UPLOAD_PRESET);
-      formData.append('folder', FOLDER_NAME);
 
       try {
         const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`, {
           method: 'POST',
           body: formData,
         });
-
         const data = await res.json();
-        if (!data.secure_url) throw new Error('Yükleme başarısız.');
+
+        if (data.secure_url) {
+          const { error: insertError } = await supabase.from('gallery').insert([
+            {
+              image_url: data.secure_url,
+              uploader_name: uploader || 'Anonim',
+            },
+          ]);
+
+          if (insertError) {
+            console.error('Supabase kayıt hatası:', insertError.message);
+          }
+        }
       } catch (err) {
         console.error('Yükleme hatası:', err);
         setMessage('Yükleme sırasında hata oluştu.');
@@ -66,8 +71,9 @@ export default function App() {
       }
     }
 
-    setMessage('Fotoğraflar başarıyla yüklendi!');
+    setMessage('Tüm fotoğraflar başarıyla yüklendi!');
     setSelectedFiles([]);
+    setUploader('');
     document.getElementById('upload-input').value = '';
     fetchGallery();
   };
@@ -80,80 +86,184 @@ export default function App() {
   ];
 
   return (
-    <div style={{ backgroundColor: '#fff0f5', minHeight: '100vh', padding: '2rem', fontFamily: "'Quicksand', sans-serif" }}>
-      <h1 style={{ textAlign: 'center', fontSize: '2.5rem', color: '#b76e79' }}>
+    <div style={{
+      backgroundColor: '#fff0f5',
+      minHeight: '100vh',
+      padding: '2rem',
+      fontFamily: "'Quicksand', sans-serif",
+      color: '#4d4d4d',
+    }}>
+      <div style={{
+        textAlign: 'center',
+        fontSize: '0.9rem',
+        backgroundColor: '#ffe4e1',
+        padding: '0.5rem',
+        borderRadius: '6px',
+        marginBottom: '1rem',
+        color: '#a14c5c',
+        fontWeight: 'bold'
+      }}>
+        💌 Enes & Aleyna — 14 Eylül 2025, İstanbul
+      </div>
+
+      <h1 style={{
+        textAlign: 'center',
+        fontSize: '2.5rem',
+        color: '#b76e79',
+        marginBottom: '0.5rem',
+        fontFamily: "'Great Vibes', cursive"
+      }}>
         💍 Aleyna & Enes - Nişan Anı Albümü
       </h1>
 
-      <div style={{ textAlign: 'center', margin: '1rem auto' }}>
+      <p style={{
+        textAlign: 'center',
+        maxWidth: '600px',
+        margin: '0 auto 2rem',
+        padding: '1rem',
+        fontStyle: 'italic',
+        fontSize: '1rem',
+        color: '#5a5a5a',
+        backgroundColor: '#fff8fb',
+        borderLeft: '4px solid #ffb6c1',
+        borderRadius: '8px',
+      }}>
+        “14 Eylül 2025... Birlikte çıktığımız bu yolda ilk adımın anıları burada birikti.
+        Her karede biraz heyecan, biraz kahkaha, çokça sevgi var.
+        Bu sayfada yalnızca fotoğraflar değil; kalplerimiz de paylaşılıyor.”
+      </p>
+
+      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <input
+          type="text"
+          placeholder="Adınız (isteğe bağlı)"
+          value={uploader}
+          onChange={(e) => setUploader(e.target.value)}
+          style={{
+            marginBottom: '1rem',
+            padding: '10px',
+            border: '1px solid #ddd',
+            borderRadius: '8px',
+            width: '80%',
+            maxWidth: '400px',
+            display: 'block',
+            marginInline: 'auto'
+          }}
+        />
         <input
           id="upload-input"
           type="file"
           accept="image/*"
           multiple
           onChange={handleFileChange}
-          style={{ display: 'block', margin: '1rem auto' }}
+          style={{
+            display: 'inline-block',
+            padding: '12px 16px',
+            backgroundColor: '#fff0f5',
+            border: '2px dashed #ffb6c1',
+            borderRadius: '12px',
+            color: '#b76e79',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease-in-out',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
+          }}
         />
         <button onClick={handleUpload} style={{
-          padding: '10px 20px',
-          background: '#ffb6c1',
+          marginLeft: '1rem',
+          backgroundColor: '#ffb6c1',
+          color: 'white',
           border: 'none',
+          padding: '10px 16px',
           borderRadius: '8px',
-          color: '#fff',
           cursor: 'pointer',
-          fontWeight: 'bold'
+          fontWeight: 'bold',
         }}>
           📤 Yükle
         </button>
       </div>
 
-      {message && (
-        <p style={{ textAlign: 'center', color: message.includes('başarı') ? 'green' : 'red' }}>{message}</p>
-      )}
+      {message && <p style={{
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: message.includes('başarı') ? '#28a745' : '#c0392b'
+      }}>{message}</p>}
+
+      <h2 style={{
+        fontFamily: "'Great Vibes', cursive",
+        fontSize: '1.8rem',
+        textAlign: 'center',
+        color: '#9c6f73',
+        marginTop: '3rem'
+      }}>📸 Anılarımızdan Birkaç Sayfa</h2>
 
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
         gap: '1rem',
-        marginTop: '2rem'
+        marginTop: '1rem',
+        padding: '1rem'
       }}>
         {gallery.map((item, i) => (
-          <div key={i} style={{
-            background: '#fff',
-            padding: '12px',
-            borderRadius: '12px',
-            boxShadow: '0 4px 8px rgba(0,0,0,0.15)',
-            border: '1px solid #ddd',
-            textAlign: 'center',
-            width: '100%',
-            cursor: 'pointer',
-            transform: `rotate(${i % 2 === 0 ? '-2deg' : '2deg'})`,
-          }}
-            onClick={() => setSelectedImage(item.image_url)}
-          >
-            <img src={item.image_url} alt={`foto ${i}`} style={{ width: '100%', borderRadius: '8px' }} />
-            <div style={{ marginTop: '8px', fontSize: '0.8rem', color: '#555' }}>{item.uploader_name}</div>
+          <div key={item.id}>
+            {i > 0 && i % 4 === 0 && (
+              <div style={{
+                fontStyle: 'italic',
+                fontSize: '0.9rem',
+                color: '#a56363',
+                backgroundColor: '#fffafc',
+                padding: '0.5rem',
+                borderRadius: '8px',
+                textAlign: 'center',
+                boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
+              }}>
+                {romanticQuotes[Math.floor(Math.random() * romanticQuotes.length)]}
+              </div>
+            )}
+            <div
+              style={{
+                background: '#fff',
+                padding: '12px',
+                borderRadius: '12px',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.15)',
+                border: '1px solid #ddd',
+                textAlign: 'center',
+                width: '160px',
+                transform: `rotate(${i % 2 === 0 ? '-2deg' : '2deg'})`,
+                cursor: 'pointer'
+              }}
+              onClick={() => setSelectedImage(item.image_url)}
+            >
+              <img src={item.image_url} alt={`Anı ${i + 1}`} style={{ width: '100%', borderRadius: '4px' }} />
+              <div style={{ marginTop: '8px', fontSize: '0.8rem', color: '#555' }}>
+                <strong>{item.uploader_name}</strong>
+              </div>
+            </div>
           </div>
         ))}
       </div>
 
       {selectedImage && (
-        <div
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.75)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999
+        }}
           onClick={() => setSelectedImage(null)}
-          style={{
-            position: 'fixed',
-            top: 0, left: 0, right: 0, bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.7)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 9999
-          }}
         >
           <img
             src={selectedImage}
-            style={{ maxWidth: '90%', maxHeight: '90%', borderRadius: '12px' }}
             alt="Büyütülmüş"
+            style={{
+              maxWidth: '90%',
+              maxHeight: '90%',
+              borderRadius: '12px',
+              boxShadow: '0 0 15px rgba(255,255,255,0.8)'
+            }}
           />
         </div>
       )}
