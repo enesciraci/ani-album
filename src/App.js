@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { supabase } from './supabaseClient';
 
 export default function App() {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -7,8 +8,25 @@ export default function App() {
   const [message, setMessage] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const CLOUD_NAME = 'dwwlpbmja'; // Cloudinary hesabın
-  const UPLOAD_PRESET = 'aleynaenesalbum'; // Oluşturduğun preset
+  const CLOUD_NAME = 'dwwlpbmja';
+  const UPLOAD_PRESET = 'aleynaenesalbum';
+
+  useEffect(() => {
+    fetchGallery();
+  }, []);
+
+  const fetchGallery = async () => {
+    const { data, error } = await supabase
+      .from('gallery')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error('Veri çekilemedi:', error.message);
+    } else {
+      setGallery(data);
+    }
+  };
 
   const handleFileChange = (e) => {
     setSelectedFiles(Array.from(e.target.files));
@@ -21,7 +39,6 @@ export default function App() {
     }
 
     setMessage('Yükleniyor...');
-    const uploadedUrls = [];
 
     for (const file of selectedFiles) {
       const formData = new FormData();
@@ -35,10 +52,18 @@ export default function App() {
         });
         const data = await res.json();
 
-        uploadedUrls.push({
-          image_url: data.secure_url,
-          uploader_name: uploader || 'Anonim',
-        });
+        if (data.secure_url) {
+          const { error: insertError } = await supabase.from('gallery').insert([
+            {
+              image_url: data.secure_url,
+              uploader_name: uploader || 'Anonim',
+            },
+          ]);
+
+          if (insertError) {
+            console.error('Supabase kayıt hatası:', insertError.message);
+          }
+        }
       } catch (err) {
         console.error('Yükleme hatası:', err);
         setMessage('Yükleme sırasında hata oluştu.');
@@ -46,11 +71,11 @@ export default function App() {
       }
     }
 
-    setGallery((prev) => [...uploadedUrls, ...prev]);
     setMessage('Tüm fotoğraflar başarıyla yüklendi!');
     setSelectedFiles([]);
     setUploader('');
     document.getElementById('upload-input').value = '';
+    fetchGallery();
   };
 
   const romanticQuotes = [
@@ -107,34 +132,6 @@ export default function App() {
         Her karede biraz heyecan, biraz kahkaha, çokça sevgi var.
         Bu sayfada yalnızca fotoğraflar değil; kalplerimiz de paylaşılıyor.”
       </p>
-
-      <div style={{
-        backgroundColor: '#fffafc',
-        border: '2px dashed #ffb6c1',
-        padding: '1rem',
-        borderRadius: '12px',
-        margin: '2rem auto',
-        maxWidth: '600px',
-        color: '#a14c5c',
-        textAlign: 'left',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
-      }}>
-        <h3 style={{ textAlign: 'center', fontSize: '1.3rem', marginBottom: '1rem' }}>📸 Fotoğraf Nasıl Yüklenir?</h3>
-        <ol style={{ paddingLeft: '1.2rem', lineHeight: '1.8' }}>
-          <li><strong>Adınızı yazın</strong> (isteğe bağlı)</li>
-          <li><strong>Bir veya daha fazla fotoğraf seçin</strong></li>
-          <li><strong>📤 Yükle</strong> butonuna tıklayın</li>
-          <li>Fotoğraflarınız birkaç saniye içinde albüme eklenecek</li>
-        </ol>
-        <p style={{
-          marginTop: '1rem',
-          fontStyle: 'italic',
-          fontSize: '0.95rem',
-          textAlign: 'center'
-        }}>
-          💖 “Her kare bir hatıra, her yükleme bir tebessüm...”
-        </p>
-      </div>
 
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <input
@@ -208,7 +205,7 @@ export default function App() {
         padding: '1rem'
       }}>
         {gallery.map((item, i) => (
-          <div key={i}>
+          <div key={item.id}>
             {i > 0 && i % 4 === 0 && (
               <div style={{
                 fontStyle: 'italic',
