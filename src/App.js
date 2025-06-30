@@ -55,6 +55,33 @@ export default function App() {
     document.getElementById('upload-input').value = '';
   };
 
+  const fetchGallery = async () => {
+  try {
+    const res = await fetch('https://api.uploadcare.com/files/?ordering=-datetime_uploaded', {
+      headers: {
+        Accept: 'application/vnd.uploadcare-v0.7+json',
+        Authorization: 'Uploadcare.Simple 11bc1127d609268ba8b8:a9174c05c67b00d287c5' // 👈 Burası çok önemli
+      }
+    });
+
+    const data = await res.json();
+    const urls = data.results
+      .filter(file => file.is_image && file.is_ready)
+      .map(file => ({
+        image_url: `https://ucarecdn.com/${file.uuid}/`,
+        uploader_name: 'Anonim' // İleride Supabase’e bağlarsan isim buradan çekilir
+      }));
+
+    setGallery(urls);
+  } catch (err) {
+    console.error('Uploadcare galeri alınamadı:', err);
+  }
+};
+
+  useEffect(() => {
+  fetchGallery();
+}, []);
+
   const romanticQuotes = [
     '💕 “Seninle her şey bir başka güzel.”',
     '📷 “Bu karede kalbim gülümsedi.”',
