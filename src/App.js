@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import { supabase } from './supabaseClient';
+import { useState, useEffect } from 'react';
 
 export default function App() {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -10,21 +9,26 @@ export default function App() {
 
   const CLOUD_NAME = 'dwwlpbmja';
   const UPLOAD_PRESET = 'aleynaenesalbum';
+  const FOLDER_NAME = 'album';
 
   useEffect(() => {
     fetchGallery();
   }, []);
 
   const fetchGallery = async () => {
-    const { data, error } = await supabase
-      .from('gallery')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('Veri çekilemedi:', error.message);
-    } else {
-      setGallery(data);
+    try {
+      const res = await fetch(
+        `https://res.cloudinary.com/${CLOUD_NAME}/image/list/${FOLDER_NAME}.json`
+      );
+      const data = await res.json();
+      const formatted = data.resources.map((item) => ({
+        image_url: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/${item.public_id}.${item.format}`,
+        uploader_name: 'Ziyaretçi',
+      }));
+      setGallery(formatted);
+    } catch (error) {
+      console.error('Albüm verisi çekilemedi:', error.message);
+      setMessage('Albüm yüklenemedi.');
     }
   };
 
@@ -44,6 +48,7 @@ export default function App() {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('upload_preset', UPLOAD_PRESET);
+      formData.append('folder', FOLDER_NAME);
 
       try {
         const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`, {
@@ -52,17 +57,9 @@ export default function App() {
         });
         const data = await res.json();
 
-        if (data.secure_url) {
-          const { error: insertError } = await supabase.from('gallery').insert([
-            {
-              image_url: data.secure_url,
-              uploader_name: uploader || 'Anonim',
-            },
-          ]);
-
-          if (insertError) {
-            console.error('Supabase kayıt hatası:', insertError.message);
-          }
+        if (!data.secure_url) {
+          setMessage('Yükleme başarısız.');
+          return;
         }
       } catch (err) {
         console.error('Yükleme hatası:', err);
@@ -71,7 +68,7 @@ export default function App() {
       }
     }
 
-    setMessage('Tüm fotoğraflar başarıyla yüklendi!');
+    setMessage('Fotoğraflar başarıyla yüklendi!');
     setSelectedFiles([]);
     setUploader('');
     document.getElementById('upload-input').value = '';
@@ -205,7 +202,7 @@ export default function App() {
         padding: '1rem'
       }}>
         {gallery.map((item, i) => (
-          <div key={item.id}>
+          <div key={i}>
             {i > 0 && i % 4 === 0 && (
               <div style={{
                 fontStyle: 'italic',
