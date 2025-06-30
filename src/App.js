@@ -9,18 +9,34 @@ export default function App() {
   const [uploader, setUploader] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
 
+    const bucketName = 'album'; // bucket ismi burada
+
   useEffect(() => {
     fetchImages();
   }, []);
 
   const fetchImages = async () => {
-    const { data, error } = await supabase
-      .from('images')
-      .select('*')
-      .order('created_at', { ascending: false });
+    const { data, error } = await supabase.storage
+      .from(bucketName)
+      .list('', { limit: 100, sortBy: { column: 'created_at', order: 'desc' } });
 
-    if (!error) setGallery(data);
-    else console.error('Veri alınamadı:', error.message);
+    if (error) {
+      console.error('Fotoğraflar alınamadı:', error.message);
+      return;
+    }
+
+    const urls = await Promise.all(
+      data.map(async (item) => {
+        const { data: urlData } = supabase.storage
+          .from(bucketName)
+          .getPublicUrl(item.name);
+        return {
+          name: item.name,
+          url: urlData.publicUrl,
+        };
+      })
+    );
+    setGallery(urls);
   };
 
   const handleFileChange = (e) => {
@@ -28,42 +44,31 @@ export default function App() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (selectedFiles.length === 0) return setMessage('Lütfen fotoğraf seçin.');
+    e.preventDefault();
+    if (selectedFiles.length === 0) return setMessage('Lütfen fotoğraf seçin.');
 
-  const uploads = selectedFiles.map(async (file) => {
-    const filePath = `${Date.now()}_${file.name}`;
+    setMessage('Yükleniyor...');
 
-    const { data, error } = await supabase.storage
-      .from('images') // BUCKET adını buraya yaz
-      .upload(filePath, file);
+    for (const file of selectedFiles) {
+      const fileName = `${Date.now()}_${file.name}`;
+      const { error } = await supabase.storage
+        .from(bucketName)
+        .upload(fileName, file);
 
-    if (error) throw error;
+      if (error) {
+        console.error('Yükleme hatası:', error.message);
+        setMessage('Bazı fotoğraflar yüklenemedi.');
+        return;
+      }
+    }
 
-    const { data: urlData } = supabase.storage
-      .from('images') // yine bucket
-      .getPublicUrl(filePath);
-
-    const { error: insertError } = await supabase
-      .from('images_meta') // burası ayrı bir tablo (isteğe bağlı)
-      .insert({
-        image_url: urlData.publicUrl,
-        uploader_name: uploader || 'Anonim'
-      });
-
-    if (insertError) throw insertError;
-  });
-
-  try {
-    await Promise.all(uploads);
+    setSelectedFiles([]);
+    setUploader('');
+    document.getElementById('upload-input').value = '';
     setMessage('Tüm fotoğraflar başarıyla yüklendi!');
     fetchImages();
-  } catch (err) {
-    setMessage('Yükleme sırasında hata oluştu: ' + err.message);
-  }
-};
-
-
+  };
+  
   const romanticQuotes = [
     '💕 “Seninle her şey bir başka güzel.”',
     '📷 “Bu karede kalbim gülümsedi.”',
