@@ -132,10 +132,8 @@ export default function App() {
         borderLeft: '4px solid #ffb6c1',
         borderRadius: '8px',
       }}>
-  “Bugün attığımız bu ilk adımda, sizleri de yanımızda hissetmek bizim için büyük bir mutluluk.  
-  Bu sayfa, bu özel günün en güzel anılarını bir araya getirmek için hazırlandı.  
-  Her karede biraz heyecan, biraz kahkaha, çokça sevgi var...  
-  Çünkü burada yalnızca fotoğraflar değil; kalplerimiz de paylaşılıyor.”
+“Bugün attığımız ilk adımı, sevgiyle dolu anılarla taçlandırıyoruz.
+Bu sayfada sadece kareler değil, kalpler de paylaşılıyor.”
 </p>
 
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
