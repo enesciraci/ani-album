@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 
 export default function App() {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const [message, setMessage] = useState('');
   const [gallery, setGallery] = useState([]);
   const [uploader, setUploader] = useState('');
@@ -20,52 +20,58 @@ export default function App() {
       .order('created_at', { ascending: false });
 
     if (!error) setGallery(data);
-    else console.error('Veri alinmadi:', error.message);
+    else console.error('Veri alınamadı:', error.message);
   };
 
   const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+    setSelectedFiles(Array.from(e.target.files));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedFile) return setMessage('Lutfen bir fotograf secin.');
+    if (selectedFiles.length === 0) return setMessage('Lütfen bir veya birden fazla fotoğraf seçin.');
 
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const base64Image = reader.result;
+    const uploads = selectedFiles.map(file => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async () => {
+          const base64Image = reader.result;
+          const { error } = await supabase.from('images').insert([{
+            image_url: base64Image,
+            uploader_name: uploader || 'Anonim',
+            caption: '',
+          }]);
 
-      const { error } = await supabase.from('images').insert([
-        {
-          image_url: base64Image,
-          uploader_name: uploader || 'Anonim',
-          caption: '',
-        },
-      ]);
+          if (error) reject(error);
+          else resolve();
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    });
 
-      if (error) {
-        setMessage('Yukleme basarisiz oldu: ' + error.message);
-      } else {
-        setMessage('Fotograf basariyla yuklendi!');
-        setUploader('');
-        setSelectedFile(null);
-        document.getElementById('upload-input').value = '';
-        fetchImages();
-      }
-    };
-    reader.readAsDataURL(selectedFile);
+    try {
+      await Promise.all(uploads);
+      setMessage('Tüm fotoğraflar başarıyla yüklendi!');
+      setUploader('');
+      setSelectedFiles([]);
+      document.getElementById('upload-input').value = '';
+      fetchImages();
+    } catch (err) {
+      setMessage('Bazı fotoğraflar yüklenemedi: ' + err.message);
+    }
   };
 
   const romanticQuotes = [
-    '💕 “Seninle her sey bir baska guzel.”',
-    '📷 “Bu karede kalbim gulumsedi.”',
-    '🌸 “Anilar, kalbin gizli cekmecesidir.”',
-    '✨ “Bu albumde her sey askla yazildi.”',
+    '💕 “Seninle her şey bir başka güzel.”',
+    '📷 “Bu karede kalbim gülümsedi.”',
+    '🌸 “Anılar, kalbin gizli çekmecesidir.”',
+    '✨ “Bu albümde her şey aşkla yazıldı.”',
   ];
 
   return (
     <div style={{
-      backgroundImage: 'url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freevector.com%2Fflower-background-vector-30140&psig=AOvVaw3yI_sjCIR1q5u0SZ83rrUh&ust=1751289467470000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNDUhevblo4DFQAAAAAdAAAAABAE)',
+      backgroundImage: 'url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freevector.com%2Fflower-background-vector-30140")',
       backgroundRepeat: 'repeat',
       backgroundSize: 'contain',
       minHeight: '100vh',
@@ -83,7 +89,7 @@ export default function App() {
         color: '#a14c5c',
         fontWeight: 'bold'
       }}>
-        💌 Enes & Aleyna — 14 Eylul 2025, Istanbul
+        💌 Enes & Aleyna — 14 Eylül 2025, İstanbul
       </div>
 
       <h1 style={{
@@ -93,7 +99,7 @@ export default function App() {
         marginBottom: '0.5rem',
         fontFamily: "'Great Vibes', cursive"
       }}>
-        💍 Aleyna & Enes - Nisan Ani Albumu
+        💍 Aleyna & Enes - Nişan Anı Albümü
       </h1>
 
       <p style={{
@@ -109,9 +115,9 @@ export default function App() {
         borderRadius: '8px',
         fontFamily: "'Quicksand', sans-serif"
       }}>
-        “14 Eylul 2025... Birlikte ciktigimiz bu yolda ilk adimin anilari burada birikti.
-        Her karede biraz heyecan, biraz kahkaha, cokca sevgi var.
-        Bu sayfada yalnizca fotograflar degil; kalplerimiz de paylasiliyor.”
+        “14 Eylül 2025... Birlikte çıktığımız bu yolda ilk adımın anıları burada birikti.
+        Her karede biraz heyecan, biraz kahkaha, çokça sevgi var.
+        Bu sayfada yalnızca fotoğraflar değil; kalplerimiz de paylaşılıyor.”
       </p>
 
       {/* Form */}
@@ -137,6 +143,7 @@ export default function App() {
           id="upload-input"
           type="file"
           accept="image/*"
+          multiple
           onChange={handleFileChange}
           style={{
             display: 'inline-block',
