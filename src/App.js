@@ -120,23 +120,23 @@ export default function App() {
         💍 Aleyna & Enes - Nişan Anı Albümü
       </h1>
 
-<div style={{
-  backgroundColor: '#fffbe6',
-  padding: '1.5rem',
-  maxWidth: '600px',
-  margin: '0 auto 2rem',
-  borderRadius: '12px',
-  boxShadow: '3px 3px 10px rgba(0,0,0,0.1)',
-  fontFamily: "'Caveat', cursive",
-  fontSize: '1.2rem',
-  lineHeight: '1.8',
-  transform: 'rotate(-1.5deg)'
-}}>
+      <p style={{
+        textAlign: 'center',
+        maxWidth: '600px',
+        margin: '0 auto 2rem',
+        padding: '1rem',
+        fontStyle: 'italic',
+        fontSize: '1rem',
+        color: '#5a5a5a',
+        backgroundColor: '#fff8fb',
+        borderLeft: '4px solid #ffb6c1',
+        borderRadius: '8px',
+      }}>
   “Bugün attığımız bu ilk adımda, sizleri de yanımızda hissetmek bizim için büyük bir mutluluk.  
   Bu sayfa, bu özel günün en güzel anılarını bir araya getirmek için hazırlandı.  
   Her karede biraz heyecan, biraz kahkaha, çokça sevgi var...  
   Çünkü burada yalnızca fotoğraflar değil; kalplerimiz de paylaşılıyor.”
-</div>
+</p>
 
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <input
