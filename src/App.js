@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { supabase } from './supabaseClient';
 
 export default function App() {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -8,25 +7,7 @@ export default function App() {
   const [message, setMessage] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const CLOUD_NAME = 'dwwlpbmja';
-  const UPLOAD_PRESET = 'aleynaenesalbum';
-
-  useEffect(() => {
-    fetchGallery();
-  }, []);
-
-  const fetchGallery = async () => {
-    const { data, error } = await supabase
-      .from('gallery')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      console.error('Veri çekilemedi:', error.message);
-    } else {
-      setGallery(data);
-    }
-  };
+  const UPLOADCARE_PUBLIC_KEY = '11bc1127d609268ba8b8'; // 👈 Buraya kendi public key'ini yaz
 
   const handleFileChange = (e) => {
     setSelectedFiles(Array.from(e.target.files));
@@ -42,27 +23,24 @@ export default function App() {
 
     for (const file of selectedFiles) {
       const formData = new FormData();
+      formData.append('UPLOADCARE_PUB_KEY', UPLOADCARE_PUBLIC_KEY);
+      formData.append('UPLOADCARE_STORE', '1');
       formData.append('file', file);
-      formData.append('upload_preset', UPLOAD_PRESET);
 
       try {
-        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`, {
+        const res = await fetch('https://upload.uploadcare.com/base/', {
           method: 'POST',
           body: formData,
         });
+
         const data = await res.json();
 
-        if (data.secure_url) {
-          const { error: insertError } = await supabase.from('gallery').insert([
-            {
-              image_url: data.secure_url,
-              uploader_name: uploader || 'Anonim',
-            },
+        if (data.file) {
+          const imageUrl = `https://ucarecdn.com/${data.file}/`;
+          setGallery((prev) => [
+            { image_url: imageUrl, uploader_name: uploader || 'Anonim' },
+            ...prev,
           ]);
-
-          if (insertError) {
-            console.error('Supabase kayıt hatası:', insertError.message);
-          }
         }
       } catch (err) {
         console.error('Yükleme hatası:', err);
@@ -75,7 +53,6 @@ export default function App() {
     setSelectedFiles([]);
     setUploader('');
     document.getElementById('upload-input').value = '';
-    fetchGallery();
   };
 
   const romanticQuotes = [
@@ -205,7 +182,7 @@ export default function App() {
         padding: '1rem'
       }}>
         {gallery.map((item, i) => (
-          <div key={item.id}>
+          <div key={i}>
             {i > 0 && i % 4 === 0 && (
               <div style={{
                 fontStyle: 'italic',
