@@ -29,48 +29,40 @@ export default function App() {
 
   const handleSubmit = async (e) => {
   e.preventDefault();
-  if (selectedFiles.length === 0) return setMessage('Lütfen bir veya birden fazla fotoğraf seçin.');
+  if (selectedFiles.length === 0) return setMessage('Lütfen fotoğraf seçin.');
+
+  const uploads = selectedFiles.map(async (file) => {
+    const filePath = `${Date.now()}_${file.name}`;
+
+    const { data, error } = await supabase.storage
+      .from('images') // BUCKET adını buraya yaz
+      .upload(filePath, file);
+
+    if (error) throw error;
+
+    const { data: urlData } = supabase.storage
+      .from('images') // yine bucket
+      .getPublicUrl(filePath);
+
+    const { error: insertError } = await supabase
+      .from('images_meta') // burası ayrı bir tablo (isteğe bağlı)
+      .insert({
+        image_url: urlData.publicUrl,
+        uploader_name: uploader || 'Anonim'
+      });
+
+    if (insertError) throw insertError;
+  });
 
   try {
-    for (const file of selectedFiles) {
-      const fileName = `${Date.now()}_${file.name}`;
-      const { error: uploadError } = await supabase
-        .storage
-        .from('images')
-        .upload(fileName, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: publicUrlData } = supabase
-        .storage
-        .from('images')
-        .getPublicUrl(fileName);
-
-      const imageUrl = publicUrlData.publicUrl;
-
-      const { error: dbError } = await supabase
-        .from('images')
-        .insert([{
-          image_url: imageUrl,
-          uploader_name: uploader || 'Anonim',
-          caption: '',
-        }]);
-
-      if (dbError) throw dbError;
-    }
-
+    await Promise.all(uploads);
     setMessage('Tüm fotoğraflar başarıyla yüklendi!');
-    setUploader('');
-    setSelectedFiles([]);
-    document.getElementById('upload-input').value = '';
     fetchImages();
-    setTimeout(() => {
-      galleryRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, 300);
   } catch (err) {
-    setMessage('Yükleme hatası: ' + err.message);
+    setMessage('Yükleme sırasında hata oluştu: ' + err.message);
   }
 };
+
 
   const romanticQuotes = [
     '💕 “Seninle her şey bir başka güzel.”',
