@@ -1,5 +1,5 @@
 // src/App.js
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 
 export default function App() {
@@ -8,7 +8,6 @@ export default function App() {
   const [gallery, setGallery] = useState([]);
   const [uploader, setUploader] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
-  const galleryRef = useRef(null); // Galeriye odaklanmak için
 
   useEffect(() => {
     fetchImages();
@@ -58,9 +57,6 @@ export default function App() {
       setSelectedFiles([]);
       document.getElementById('upload-input').value = '';
       fetchImages();
-      setTimeout(() => {
-        galleryRef.current?.scrollIntoView({ behavior: 'smooth' });
-      }, 300);
     } catch (err) {
       setMessage('Bazı fotoğraflar yüklenemedi: ' + err.message);
     }
@@ -75,11 +71,13 @@ export default function App() {
 
   return (
     <div style={{
-      backgroundColor: '#fff0f5',
+      backgroundImage: 'url("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freevector.com%2Fflower-background-vector-30140")',
+      backgroundRepeat: 'repeat',
+      backgroundSize: 'contain',
       minHeight: '100vh',
       padding: '2rem',
       fontFamily: "'Great Vibes', cursive",
-      color: '#4d4d4d'
+      color: '#4d4d4d',
     }}>
       <div style={{
         textAlign: 'center',
@@ -98,7 +96,8 @@ export default function App() {
         textAlign: 'center',
         fontSize: '2.5rem',
         color: '#b76e79',
-        marginBottom: '0.5rem'
+        marginBottom: '0.5rem',
+        fontFamily: "'Great Vibes', cursive"
       }}>
         💍 Aleyna & Enes - Nişan Anı Albümü
       </h1>
@@ -121,37 +120,35 @@ export default function App() {
         Bu sayfada yalnızca fotoğraflar değil; kalplerimiz de paylaşılıyor.”
       </p>
 
-      {/* Kılavuz Kutusu */}
-      <div style={{
-        backgroundColor: '#fffafc',
-        border: '2px dashed #ffb6c1',
-        padding: '1rem',
-        borderRadius: '12px',
-        margin: '2rem auto',
-        maxWidth: '600px',
-        fontFamily: "'Quicksand', sans-serif",
-        color: '#a14c5c',
-        textAlign: 'left',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
-      }}>
-        <h3 style={{ textAlign: 'center', fontSize: '1.3rem', marginBottom: '1rem' }}>📸 Fotoğraf Nasıl Yüklenir?</h3>
-        <ol style={{ paddingLeft: '1.2rem', lineHeight: '1.8' }}>
-          <li><strong>Adınızı yazın</strong> (isteğe bağlı)</li>
-          <li><strong>Bir veya daha fazla fotoğraf seçin</strong></li>
-          <li><strong>📤 Yükle</strong> butonuna tıklayın</li>
-          <li>Fotoğraf(lar)ınız birkaç saniye içinde galeriye eklenecek</li>
-        </ol>
-        <p style={{
-          marginTop: '1rem',
-          fontStyle: 'italic',
-          fontSize: '0.95rem',
-          textAlign: 'center'
-        }}>
-          💖 “Her kare bir hatıra, her yükleme bir tebessüm...”
-        </p>
-      </div>
-
-      {/* Yükleme Formu */}
+<div style={{
+  backgroundColor: '#fffafc',
+  border: '2px dashed #ffb6c1',
+  padding: '1rem',
+  borderRadius: '12px',
+  margin: '2rem auto',
+  maxWidth: '600px',
+  fontFamily: "'Quicksand', sans-serif",
+  color: '#a14c5c',
+  textAlign: 'left',
+  boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+}}>
+  <h3 style={{ textAlign: 'center', fontSize: '1.3rem', marginBottom: '1rem' }}>📸 Fotoğraf Nasıl Yüklenir?</h3>
+  <ol style={{ paddingLeft: '1.2rem', lineHeight: '1.8' }}>
+    <li><strong>Adınızı yazın</strong> (isteğe bağlı)</li>
+    <li><strong>Bir veya daha fazla fotoğraf seçin</strong></li>
+    <li><strong>📤 Yükle</strong> butonuna tıklayın</li>
+    <li>Fotoğraf(lar)ınız birkaç saniye içinde galeriye eklenecek</li>
+  </ol>
+  <p style={{
+    marginTop: '1rem',
+    fontStyle: 'italic',
+    fontSize: '0.95rem',
+    textAlign: 'center'
+  }}>
+    💖 “Her kare bir hatıra, her yükleme bir tebessüm...”
+  </p>
+</div>
+      {/* Form */}
       <form onSubmit={handleSubmit} style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <input
           type="text"
@@ -212,19 +209,13 @@ export default function App() {
         fontFamily: "'Quicksand', sans-serif"
       }}>{message}</p>}
 
-      {/* Galeri Başlığı */}
-      <h2
-        ref={galleryRef}
-        style={{
-          fontFamily: "'Great Vibes', cursive",
-          fontSize: '1.8rem',
-          textAlign: 'center',
-          color: '#9c6f73',
-          marginTop: '3rem'
-        }}
-      >
-        📸 Anılarımızdan Birkaç Sayfa
-      </h2>
+      <h2 style={{
+        fontFamily: "'Great Vibes', cursive",
+        fontSize: '1.8rem',
+        textAlign: 'center',
+        color: '#9c6f73',
+        marginTop: '3rem'
+      }}>📸 Anılarımızdan Birkaç Sayfa</h2>
 
       {/* Galeri */}
       <div style={{
@@ -251,6 +242,7 @@ export default function App() {
                 {romanticQuotes[Math.floor(Math.random() * romanticQuotes.length)]}
               </div>
             )}
+
             <div
               style={{
                 background: '#fff',
@@ -266,12 +258,7 @@ export default function App() {
               }}
               onClick={() => setSelectedImage(item.image_url)}
             >
-              <img
-                src={item.image_url}
-                alt={`Anı ${i + 1}`}
-                loading="lazy"
-                style={{ width: '100%', borderRadius: '4px' }}
-              />
+              <img src={item.image_url} alt={`Anı ${i + 1}`} style={{ width: '100%', borderRadius: '4px' }} />
               <div style={{ marginTop: '8px', fontSize: '0.8rem', color: '#555' }}>
                 <strong>{item.uploader_name}</strong>
               </div>
@@ -280,7 +267,6 @@ export default function App() {
         ))}
       </div>
 
-      {/* Büyütme Modali */}
       {selectedImage && (
         <div style={{
           position: 'fixed',
