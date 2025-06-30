@@ -1,59 +1,53 @@
 // src/App.js
-import { useState, useEffect } from 'react';
-import { supabase } from './supabaseClient';
+import { useState } from 'react';
 
 export default function App() {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [message, setMessage] = useState('');
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [uploader, setUploader] = useState('');
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    fetchImages();
-  }, []);
-
-  const fetchImages = async () => {
-    const { data, error } = await supabase
-      .from('images')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (!error) setGallery(data);
-    else console.error('Veri alinmadi:', error.message);
-  };
+  const CLOUD_NAME = 'dwwlpbmja'; // ← Cloudinary hesabın
+  const UPLOAD_PRESET = 'aleynaenesalbum'; // ← Cloudinary'de oluşturduğun preset
 
   const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+    setSelectedFiles(Array.from(e.target.files));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!selectedFile) return setMessage('Lutfen bir fotograf secin.');
+  const handleUpload = async () => {
+    if (selectedFiles.length === 0) return setMessage('Lütfen fotoğraf seçin.');
 
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const base64Image = reader.result;
+    setMessage('Yükleniyor...');
+    const uploadedUrls = [];
 
-      const { error } = await supabase.from('images').insert([
-        {
-          image_url: base64Image,
-          uploader_name: uploader || 'Anonim',
-          caption: '',
-        },
-      ]);
+    for (const file of selectedFiles) {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('upload_preset', UPLOAD_PRESET);
 
-      if (error) {
-        setMessage('Yukleme basarisiz oldu: ' + error.message);
-      } else {
-        setMessage('Fotograf basariyla yuklendi!');
-        setUploader('');
-        setSelectedFile(null);
-        document.getElementById('upload-input').value = '';
-        fetchImages();
+      try {
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`, {
+          method: 'POST',
+          body: formData,
+        });
+        const data = await res.json();
+
+        uploadedUrls.push({
+          url: data.secure_url,
+          uploader: uploader || 'Anonim',
+        });
+      } catch (err) {
+        console.error('Yükleme hatası:', err);
+        setMessage('Yükleme sırasında hata oluştu.');
+        return;
       }
-    };
-    reader.readAsDataURL(selectedFile);
+    }
+
+    setGallery((prev) => [...uploadedUrls, ...prev]);
+    setMessage('Tüm fotoğraflar başarıyla yüklendi!');
+    setSelectedFiles([]);
+    setUploader('');
+    document.getElementById('file-input').value = '';
   };
 
   const romanticQuotes = [
