@@ -115,7 +115,7 @@ export default function App() {
         fontSize: '2.5rem',
         color: '#6b4f3b',
         marginBottom: '0.5rem',
-        fontFamily: "'Great Vibes', cursive"
+        fontFamily: "'Handlee', cursive"
       }}>
         💍 Aleyna & Enes - Nişan Anı Albümü
       </h1>
