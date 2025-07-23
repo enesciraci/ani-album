@@ -104,15 +104,6 @@ export default function App() {
             borderRadius: '0',
             marginBottom: '0.25rem'
           }}
-        />
-        <p style={{
-          fontSize: '0.9rem',
-          fontStyle: 'italic',
-          color: '#7a5c5c',
-          marginTop: '0.25rem'
-        }}>
-          💞 14 Eylül 2025 • Paşa Garden
-        </p>
       </div>
 
       {/* Sayfa başlığı */}
@@ -123,7 +114,7 @@ export default function App() {
         marginBottom: '0.5rem',
         fontFamily: "'Alex Brush', cursive"
       }}>
-        Aleyna 💍 Enes
+        Aleyna ❤︎ Enes
       </h1>
 
       <p style={{
@@ -143,65 +134,72 @@ export default function App() {
       </p>
 
       {/* Fotoğraf yükleme alanı */}
-      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <input
-          type="text"
-          placeholder="Adınız (isteğe bağlı)"
-          value={uploader}
-          onChange={(e) => setUploader(e.target.value)}
-          style={{
-            marginBottom: '1rem',
-            padding: '10px',
-            border: '1px solid #ddd',
-            borderRadius: '8px',
-            width: '80%',
-            maxWidth: '400px',
-            display: 'block',
-            marginInline: 'auto'
-          }}
-        />
+<div style={{
+  maxWidth: '500px',
+  margin: '0 auto 2rem',
+  backgroundColor: '#fff8f2',
+  border: '1px solid #e7c7aa',
+  borderRadius: '12px',
+  padding: '1.5rem',
+  boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
+  textAlign: 'center'
+}}>
+  <input
+    type="text"
+    placeholder="Adınız (isteğe bağlı)"
+    value={uploader}
+    onChange={(e) => setUploader(e.target.value)}
+    style={{
+      marginBottom: '1rem',
+      padding: '10px',
+      border: '1px solid #ddd',
+      borderRadius: '8px',
+      width: '100%',
+      fontSize: '1rem',
+    }}
+  />
 
-        <input
-          id="upload-input"
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleFileChange}
-          style={{ display: 'none' }}
-        />
+  <input
+    id="upload-input"
+    type="file"
+    accept="image/*"
+    multiple
+    onChange={handleFileChange}
+    style={{ display: 'none' }}
+  />
 
-        <label htmlFor="upload-input" style={{
-          display: 'inline-block',
-          fontSize: '1.2rem',
-          cursor: 'pointer',
-          padding: '6px 12px',
-          border: '1px dashed #d4a373',
-          borderRadius: '8px',
-          color: '#6b4f3b',
-          fontWeight: '500',
-          backgroundColor: '#d4a373',
-          transition: '0.2s',
-          boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-        }}
-          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#fef2e6'}
-          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#fffaf3'}
-        >
-          🖼️ Fotoğrafları Seç
-        </label>
+  <label htmlFor="upload-input" style={{
+    display: 'inline-block',
+    fontSize: '1.1rem',
+    cursor: 'pointer',
+    padding: '8px 16px',
+    border: '1px dashed #d4a373',
+    borderRadius: '8px',
+    color: '#6b4f3b',
+    fontWeight: '500',
+    backgroundColor: '#fffaf3',
+    transition: '0.2s',
+    boxShadow: 'inset 0 0 0 1px #f3d2b3',
+    marginRight: '0.5rem'
+  }}
+    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#fef2e6'}
+    onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#fffaf3'}
+  >
+    🖼️ Fotoğrafları Seç
+  </label>
 
-        <button onClick={handleUpload} style={{
-          marginLeft: '1rem',
-          backgroundColor: '#d4a373',
-          color: 'white',
-          border: 'none',
-          padding: '10px 16px',
-          borderRadius: '8px',
-          cursor: 'pointer',
-          fontWeight: 'bold',
-        }}>
-          📤 Yükle
-        </button>
-      </div>
+  <button onClick={handleUpload} style={{
+    backgroundColor: '#d4a373',
+    color: 'white',
+    border: 'none',
+    padding: '10px 16px',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontWeight: 'bold',
+  }}>
+    📤 Yükle
+  </button>
+</div>
 
       {message && <p style={{
         textAlign: 'center',
