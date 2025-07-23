@@ -112,6 +112,7 @@ export default function App() {
         textAlign: 'center',
         fontSize: '2.8rem',
         color: '#6b4f3b',
+        marginTop: '-8px',
         marginBottom: '0.2rem',
         fontFamily: "'Alex Brush', cursive"
       }}>
@@ -219,7 +220,7 @@ export default function App() {
         textAlign: 'center',
         color: '#9c6f73',
         marginTop: '3rem'
-      }}>💞 Kalpten Kareler</h2>
+      }}>⁠❥ Kalpten Kareler</h2>
 
       {/* Galeri */}
       <div style={{
