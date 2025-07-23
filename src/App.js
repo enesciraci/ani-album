@@ -90,37 +90,34 @@ export default function App() {
   ];
 
   return (
- <div style={{
-      textAlign: 'center',
-      marginTop: '1rem',
-      marginBottom: '1rem'
-    }}>
-      <img
-        src="/nisan.png"
-        alt="Aleyna ve Enes"
-        style={{
-          maxHeight: '140px',
-          height: 'auto',
-          width: 'auto',
-          objectFit: 'contain',
-          border: 'none',
-          boxShadow: 'none',
-          borderRadius: '0'
-        }}
-      />
-      <p style={{
-        marginTop: '0.5rem',
-        fontSize: '0.95rem',
-        fontStyle: 'italic',
-        color: '#7a5c5c'
-      }}>
-        💞 14 Eylül 2025 • Paşa Garden
-      </p>
-    </div>
+    <div>
+      <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+        <img
+          src="/nisan.png"
+          alt="Aleyna ve Enes"
+          style={{
+            maxHeight: '120px',
+            height: 'auto',
+            width: 'auto',
+            objectFit: 'contain',
+            border: 'none',
+            boxShadow: 'none',
+            borderRadius: '0',
+            marginBottom: '0.5rem'
+          }}
+        />
+        <p style={{
+          fontSize: '0.95rem',
+          fontStyle: 'italic',
+          color: '#7a5c5c'
+        }}>
+          💞 14 Eylül 2025 • Paşa Garden
+        </p>
+      </div>
 
       <h1 style={{
         textAlign: 'center',
-        fontSize: '2.5rem',
+        fontSize: '2.4rem',
         color: '#6b4f3b',
         marginBottom: '0.5rem',
         fontFamily: "'Handlee', cursive"
@@ -172,68 +169,65 @@ export default function App() {
         </p>
       </div>
 
-    <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-  <input
-    type="text"
-    placeholder="Adınız (isteğe bağlı)"
-    value={uploader}
-    onChange={(e) => setUploader(e.target.value)}
-    style={{
-      marginBottom: '1rem',
-      padding: '10px',
-      border: '1px solid #ddd',
-      borderRadius: '8px',
-      width: '80%',
-      maxWidth: '400px',
-      display: 'block',
-      marginInline: 'auto'
-    }}
-  />
+      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <input
+          type="text"
+          placeholder="Adınız (isteğe bağlı)"
+          value={uploader}
+          onChange={(e) => setUploader(e.target.value)}
+          style={{
+            marginBottom: '1rem',
+            padding: '10px',
+            border: '1px solid #ddd',
+            borderRadius: '8px',
+            width: '80%',
+            maxWidth: '400px',
+            display: 'block',
+            marginInline: 'auto'
+          }}
+        />
 
-  {/* Gizli dosya inputu */}
-  <input
-    id="upload-input"
-    type="file"
-    accept="image/*"
-    multiple
-    onChange={handleFileChange}
-    style={{ display: 'none' }}
-  />
+        <input
+          id="upload-input"
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handleFileChange}
+          style={{ display: 'none' }}
+        />
 
-  {/* 📤 İkonlu tıklanabilir alan */}
-  <label htmlFor="upload-input" style={{
-  display: 'inline-block',
-  fontSize: '1.2rem', // önceki 2rem'di
-  cursor: 'pointer',
-  padding: '6px 12px', // daha zarif
-  border: '1px dashed #d4a373',
-  borderRadius: '8px',
-  color: '#6b4f3b',
-  fontWeight: '500',
-  backgroundColor: '#d4a373',
-  transition: '0.2s',
-  boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
-}}
-onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#fef2e6'}
-onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#fffaf3'}
->
-  🖼️ Fotoğrafları Seç
-</label>
+        <label htmlFor="upload-input" style={{
+          display: 'inline-block',
+          fontSize: '1.2rem',
+          cursor: 'pointer',
+          padding: '6px 12px',
+          border: '1px dashed #d4a373',
+          borderRadius: '8px',
+          color: '#6b4f3b',
+          fontWeight: '500',
+          backgroundColor: '#d4a373',
+          transition: '0.2s',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+        }}
+          onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#fef2e6'}
+          onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#fffaf3'}
+        >
+          🖼️ Fotoğrafları Seç
+        </label>
 
-  <button onClick={handleUpload} style={{
-    marginLeft: '1rem',
-    backgroundColor: '#d4a373',
-    color: 'white',
-    border: 'none',
-    padding: '10px 16px',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
-  }}>
-    📤 Yükle
-  </button>
-</div>
-
+        <button onClick={handleUpload} style={{
+          marginLeft: '1rem',
+          backgroundColor: '#d4a373',
+          color: 'white',
+          border: 'none',
+          padding: '10px 16px',
+          borderRadius: '8px',
+          cursor: 'pointer',
+          fontWeight: 'bold',
+        }}>
+          📤 Yükle
+        </button>
+      </div>
 
       {message && <p style={{
         textAlign: 'center',
