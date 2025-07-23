@@ -112,7 +112,7 @@ export default function App() {
         fontSize: '2.4rem',
         color: '#6b4f3b',
         marginBottom: '0.5rem',
-        fontFamily: "'Handlee', cursive"
+        fontFamily: "'Alex Brush', cursive"
       }}>
          Aleyna💍Enes
       </h1>
@@ -200,7 +200,7 @@ export default function App() {
       }}>{message}</p>}
 
       <h2 style={{
-        fontFamily: "'Great Vibes', cursive",
+        fontFamily: "'Alex Brush', cursive",
         fontSize: '1.8rem',
         textAlign: 'center',
         color: '#9c6f73',
