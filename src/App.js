@@ -164,7 +164,7 @@ export default function App() {
         </p>
       </div>
 
-     <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+    <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
   <input
     type="text"
     placeholder="Adınız (isteğe bağlı)"
@@ -182,6 +182,7 @@ export default function App() {
     }}
   />
 
+  {/* Gizli dosya inputu */}
   <input
     id="upload-input"
     type="file"
@@ -191,30 +192,28 @@ export default function App() {
     style={{ display: 'none' }}
   />
 
+  {/* 📤 İkonlu tıklanabilir alan */}
   <label htmlFor="upload-input" style={{
     display: 'inline-block',
+    fontSize: '2rem',
     cursor: 'pointer',
-    width: '100%',
-    maxWidth: '400px',
-    margin: '0 auto'
-  }}>
-    <img
-      src="https://www.hollteck.co.uk/content/upload-your-information~101.jpg"
-      alt="Fotoğraf Yükle"
-      style={{
-        width: '100%',
-        height: 'auto',
-        border: '2px dashed #d4a373',
-        borderRadius: '12px',
-        padding: '1rem',
-        backgroundColor: '#fffaf5',
-        boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
-      }}
-    />
+    padding: '12px 20px',
+    border: '2px dashed #d4a373',
+    borderRadius: '12px',
+    color: '#6b4f3b',
+    fontWeight: 'bold',
+    backgroundColor: '#fffaf3',
+    transition: '0.2s',
+    boxShadow: '0 2px 5px rgba(0,0,0,0.05)',
+  }}
+  onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#fef2e6'}
+  onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#fffaf3'}
+  >
+    📤 Fotoğraf Seç
   </label>
 
   <button onClick={handleUpload} style={{
-    marginTop: '1rem',
+    marginLeft: '1rem',
     backgroundColor: '#d4a373',
     color: 'white',
     border: 'none',
@@ -223,9 +222,10 @@ export default function App() {
     cursor: 'pointer',
     fontWeight: 'bold',
   }}>
-    📤 Yükle
+    Yükle
   </button>
 </div>
+
 
       {message && <p style={{
         textAlign: 'center',
