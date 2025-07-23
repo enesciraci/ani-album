@@ -90,35 +90,33 @@ export default function App() {
   ];
 
   return (
-<div style={{
-  textAlign: 'center',
-  marginTop: '1rem',
-  marginBottom: '2rem'
-}}>
-  <img
-    src="/nisan.png"
-    alt="Aleyna ve Enes"
-    style={{
-      maxHeight: '140px',
-      height: 'auto',
-      width: 'auto',
-      objectFit: 'contain',
-      border: 'none',
-      boxShadow: 'none',
-      borderRadius: '0'
-    }}
-  />
+ <div style={{
+      textAlign: 'center',
+      marginTop: '1rem',
+      marginBottom: '1rem'
+    }}>
+      <img
+        src="/nisan.png"
+        alt="Aleyna ve Enes"
+        style={{
+          maxHeight: '140px',
+          height: 'auto',
+          width: 'auto',
+          objectFit: 'contain',
+          border: 'none',
+          boxShadow: 'none',
+          borderRadius: '0'
+        }}
+      />
+      <p style={{
+        marginTop: '0.5rem',
+        fontSize: '0.95rem',
+        fontStyle: 'italic',
+        color: '#7a5c5c'
+      }}>
+        💞 14 Eylül 2025 • Paşa Garden
+      </p>
     </div>
-    
-  <p style={{
-    marginTop: '0.5rem',
-    fontSize: '0.95rem',
-    fontStyle: 'italic',
-    color: '#7a5c5c'
-  }}>
-    💞 14 Eylül 2025 • Paşa Garden
-  </p>
-</div>
 
       <h1 style={{
         textAlign: 'center',
