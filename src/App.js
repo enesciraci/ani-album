@@ -219,7 +219,7 @@ export default function App() {
         fontSize: '1.8rem',
         textAlign: 'center',
         color: '#9c6f73',
-        marginTop: '3rem'
+        marginTop: '1rem'
       }}>⁠❥ Kalpten Kareler</h2>
 
       {/* Galeri */}
