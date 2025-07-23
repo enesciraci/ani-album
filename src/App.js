@@ -105,14 +105,6 @@ export default function App() {
             borderRadius: '0',
             marginBottom: '0.5rem'
           }}
-        />
-        <p style={{
-          fontSize: '0.95rem',
-          fontStyle: 'italic',
-          color: '#7a5c5c'
-        }}>
-          💞 14 Eylül 2025 • Paşa Garden
-        </p>
       </div>
 
       <h1 style={{
@@ -122,7 +114,7 @@ export default function App() {
         marginBottom: '0.5rem',
         fontFamily: "'Handlee', cursive"
       }}>
-        💍 Aleyna & Enes - Nişan Anı Albümü
+         Aleyna💍Enes
       </h1>
 
       <p style={{
@@ -140,34 +132,6 @@ export default function App() {
         “Bu özel günde attığımız ilk adımı sizlerle paylaşmak bizim için çok kıymetli.
         Her kare, sevgiyle dolu bir anı…”
       </p>
-
-      <div style={{
-        backgroundColor: '#fffaf3',
-        border: '1px dashed #d4a373',
-        padding: '0.75rem',
-        borderRadius: '10px',
-        margin: '1.5rem auto',
-        maxWidth: '500px',
-        fontSize: '0.85rem',
-        color: '#6b4f3b',
-        textAlign: 'left',
-        boxShadow: '0 1px 4px rgba(0,0,0,0.03)'
-      }}>
-        <h3 style={{ textAlign: 'center', fontSize: '1.1rem', marginBottom: '0.5rem' }}>📸 Fotoğraf Yükleme</h3>
-        <ul style={{ paddingLeft: '1rem', lineHeight: '1.5', margin: 0 }}>
-          <li>Adınızı yazın (isteğe bağlı)</li>
-          <li>Fotoğraf(lar)ınızı seçin</li>
-          <li>📤 Yükle butonuna tıklayın</li>
-        </ul>
-        <p style={{
-          marginTop: '0.75rem',
-          fontStyle: 'italic',
-          fontSize: '0.8rem',
-          textAlign: 'center'
-        }}>
-          💖 Her kare bir tebessüm...
-        </p>
-      </div>
 
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <input
