@@ -93,17 +93,18 @@ export default function App() {
     <div>
       {/* Başlık görseli */}
       <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-        <img
-          src="/nisan.png"
-          alt="Aleyna ve Enes"
-          style={{
-            maxHeight: '100px',
-            objectFit: 'contain',
-            border: 'none',
-            boxShadow: 'none',
-            borderRadius: '0',
-            marginBottom: '0.25rem'
-          }}
+       <img
+  src="/nisan.png"
+  alt="Aleyna ve Enes"
+  style={{
+    maxHeight: '100px',
+    objectFit: 'contain',
+    border: 'none',
+    boxShadow: 'none',
+    borderRadius: '0',
+    marginBottom: '0.25rem'
+  }}
+/>
       </div>
 
       {/* Sayfa başlığı */}
