@@ -194,23 +194,23 @@ export default function App() {
 
   {/* 📤 İkonlu tıklanabilir alan */}
   <label htmlFor="upload-input" style={{
-    display: 'inline-block',
-    fontSize: '2rem',
-    cursor: 'pointer',
-    padding: '12px 20px',
-    border: '2px dashed #d4a373',
-    borderRadius: '12px',
-    color: '#6b4f3b',
-    fontWeight: 'bold',
-    backgroundColor: '#fffaf3',
-    transition: '0.2s',
-    boxShadow: '0 2px 5px rgba(0,0,0,0.05)',
-  }}
-  onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#fef2e6'}
-  onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#fffaf3'}
-  >
-    📤 Fotoğraf Seç
-  </label>
+  display: 'inline-block',
+  fontSize: '1.2rem', // önceki 2rem'di
+  cursor: 'pointer',
+  padding: '6px 12px', // daha zarif
+  border: '1px dashed #d4a373',
+  borderRadius: '8px',
+  color: '#6b4f3b',
+  fontWeight: '500',
+  backgroundColor: '#fffaf3',
+  transition: '0.2s',
+  boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+}}
+onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#fef2e6'}
+onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#fffaf3'}
+>
+  🖼️ Fotoğrafları Seç
+</label>
 
   <button onClick={handleUpload} style={{
     marginLeft: '1rem',
@@ -222,7 +222,7 @@ export default function App() {
     cursor: 'pointer',
     fontWeight: 'bold',
   }}>
-    Yükle
+    📤 Yükle
   </button>
 </div>
 
