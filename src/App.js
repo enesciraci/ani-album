@@ -218,7 +218,9 @@ export default function App() {
 
 <p style={{ fontSize: '0.8rem', textAlign: 'center', marginTop: '0.5rem', color: '#6b4b3e' }}>
   Tek seferde en fazla 20 fotoğraf yükleyebilirsiniz.
-</p>
+    </p>
+
+    </p>
       {message && <p style={{
         textAlign: 'center',
         fontWeight: 'bold',
