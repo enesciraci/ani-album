@@ -169,37 +169,41 @@ export default function App() {
     style={{ display: 'none' }}
   />
 
-  <label htmlFor="upload-input" style={{
-    display: 'inline-block',
-    fontSize: '1.1rem',
-    cursor: 'pointer',
-    padding: '8px 16px',
-    border: '1px dashed #d4a373',
-    borderRadius: '8px',
-    color: '#6b4f3b',
-    fontWeight: '500',
-    backgroundColor: '#fffaf3',
-    transition: '0.2s',
-    boxShadow: 'inset 0 0 0 1px #f3d2b3',
-    marginRight: '0.5rem'
-  }}
-    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#fef2e6'}
-    onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#fffaf3'}
-  >
-    🖼️ Fotoğrafları Seç
-  </label>
+<label htmlFor="upload-input" style={{
+  display: 'inline-block',
+  fontSize: '0.95rem',
+  cursor: 'pointer',
+  padding: '6px 12px',
+  border: '1px dashed #d4a373',
+  borderRadius: '6px',
+  color: '#6b4f3b',
+  fontWeight: '500',
+  backgroundColor: '#fffaf3',
+  transition: '0.2s',
+  boxShadow: 'inset 0 0 0 1px #f3d2b3',
+  marginRight: '0.5rem',
+  minWidth: '130px',
+  textAlign: 'center'
+}}
+  onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#fef2e6'}
+  onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#fffaf3'}
+>
+  🖼️ Fotoğrafları Seç
+</label>
 
-  <button onClick={handleUpload} style={{
-    backgroundColor: '#d4a373',
-    color: 'white',
-    border: 'none',
-    padding: '10px 16px',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    fontWeight: 'bold',
-  }}>
-    📤 Yükle
-  </button>
+<button onClick={handleUpload} style={{
+  backgroundColor: '#d4a373',
+  color: 'white',
+  border: 'none',
+  padding: '6px 12px',
+  borderRadius: '6px',
+  cursor: 'pointer',
+  fontWeight: '500',
+  fontSize: '0.95rem',
+  minWidth: '130px'
+}}>
+  📤 Yükle
+</button>
 </div>
 
       {message && <p style={{
