@@ -102,7 +102,7 @@ export default function App() {
     border: 'none',
     boxShadow: 'none',
     borderRadius: '0',
-    marginBottom: '0.25rem'
+    marginBottom: '0'
   }}
 />
       </div>
@@ -112,7 +112,7 @@ export default function App() {
         textAlign: 'center',
         fontSize: '2.8rem',
         color: '#6b4f3b',
-        marginBottom: '0.5rem',
+        marginBottom: '0.2rem',
         fontFamily: "'Alex Brush', cursive"
       }}>
         Aleyna ❤︎ Enes
