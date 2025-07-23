@@ -7,7 +7,7 @@ export default function App() {
   const [message, setMessage] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const UPLOADCARE_PUBLIC_KEY = '11bc1127d609268ba8b8'; // 👈 Buraya kendi public key'ini yaz
+  const UPLOADCARE_PUBLIC_KEY = '11bc1127d609268ba8b8';
 
   const handleFileChange = (e) => {
     setSelectedFiles(Array.from(e.target.files));
@@ -56,31 +56,31 @@ export default function App() {
   };
 
   const fetchGallery = async () => {
-  try {
-    const res = await fetch('https://api.uploadcare.com/files/?ordering=-datetime_uploaded', {
-      headers: {
-        Accept: 'application/vnd.uploadcare-v0.7+json',
-        Authorization: 'Uploadcare.Simple 11bc1127d609268ba8b8:a9174c05c67b00d287c5' // 👈 Burası çok önemli
-      }
-    });
+    try {
+      const res = await fetch('https://api.uploadcare.com/files/?ordering=-datetime_uploaded', {
+        headers: {
+          Accept: 'application/vnd.uploadcare-v0.7+json',
+          Authorization: 'Uploadcare.Simple 11bc1127d609268ba8b8:a9174c05c67b00d287c5'
+        }
+      });
 
-    const data = await res.json();
-    const urls = data.results
-      .filter(file => file.is_image && file.is_ready)
-      .map(file => ({
-        image_url: `https://ucarecdn.com/${file.uuid}/`,
-        uploader_name: 'Anonim' // İleride Supabase’e bağlarsan isim buradan çekilir
-      }));
+      const data = await res.json();
+      const urls = data.results
+        .filter(file => file.is_image && file.is_ready)
+        .map(file => ({
+          image_url: `https://ucarecdn.com/${file.uuid}/`,
+          uploader_name: 'Anonim'
+        }));
 
-    setGallery(urls);
-  } catch (err) {
-    console.error('Uploadcare galeri alınamadı:', err);
-  }
-};
+      setGallery(urls);
+    } catch (err) {
+      console.error('Uploadcare galeri alınamadı:', err);
+    }
+  };
 
   useEffect(() => {
-  fetchGallery();
-}, []);
+    fetchGallery();
+  }, []);
 
   const romanticQuotes = [
     '💕 “Seninle her şey bir başka güzel.”',
@@ -91,20 +91,20 @@ export default function App() {
 
   return (
     <div style={{
-      backgroundColor: '#fff0f5',
+      backgroundColor: '#fdfaf6',
       minHeight: '100vh',
       padding: '2rem',
       fontFamily: "'Quicksand', sans-serif",
-      color: '#4d4d4d',
+      color: '#4a3b2c',
     }}>
       <div style={{
         textAlign: 'center',
         fontSize: '0.9rem',
-        backgroundColor: '#ffe4e1',
+        backgroundColor: '#f3e9e4',
         padding: '0.5rem',
         borderRadius: '6px',
         marginBottom: '1rem',
-        color: '#a14c5c',
+        color: '#6b4f3b',
         fontWeight: 'bold'
       }}>
         💞 14 Eylül 2025 • Paşa Garden
@@ -113,7 +113,7 @@ export default function App() {
       <h1 style={{
         textAlign: 'center',
         fontSize: '2.5rem',
-        color: '#b76e79',
+        color: '#6b4f3b',
         marginBottom: '0.5rem',
         fontFamily: "'Great Vibes', cursive"
       }}>
@@ -127,43 +127,42 @@ export default function App() {
         padding: '1rem',
         fontStyle: 'italic',
         fontSize: '1rem',
-        color: '#5a5a5a',
-        backgroundColor: '#fff8fb',
-        borderLeft: '4px solid #ffb6c1',
+        color: '#7a5c5c',
+        backgroundColor: '#fef8f5',
+        borderLeft: '4px solid #d4a373',
         borderRadius: '8px',
       }}>
-“Bu özel günde attığımız ilk adımı sizlerle paylaşmak bizim için çok kıymetli.
-Her kare, sevgiyle dolu bir anı…”
-</p>
+        “Bu özel günde attığımız ilk adımı sizlerle paylaşmak bizim için çok kıymetli.
+        Her kare, sevgiyle dolu bir anı…”
+      </p>
 
-  <div style={{
-  backgroundColor: '#fffafc',
-  border: '2px dashed #ffb6c1',
-  padding: '1rem',
-  borderRadius: '12px',
-  margin: '2rem auto',
-  maxWidth: '600px',
-  fontFamily: "'Quicksand', sans-serif",
-  color: '#a14c5c',
-  textAlign: 'left',
-  boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
-}}>
-  <h3 style={{ textAlign: 'center', fontSize: '1.3rem', marginBottom: '1rem' }}>📸 Fotoğraf Nasıl Yüklenir?</h3>
-  <ol style={{ paddingLeft: '1.2rem', lineHeight: '1.8' }}>
-    <li><strong>Adınızı yazın</strong> (isteğe bağlı)</li>
-    <li><strong>Bir veya daha fazla fotoğraf seçin</strong></li>
-    <li><strong>📤 Yükle</strong> butonuna tıklayın</li>
-    <li>Fotoğraf(lar)ınız birkaç saniye içinde galeriye eklenecek</li>
-  </ol>
-  <p style={{
-    marginTop: '1rem',
-    fontStyle: 'italic',
-    fontSize: '0.95rem',
-    textAlign: 'center'
-  }}>
-    💖 “Her kare bir hatıra, her yükleme bir tebessüm...”
-  </p>
-</div>
+      <div style={{
+        backgroundColor: '#fffaf3',
+        border: '2px dashed #d4a373',
+        padding: '1rem',
+        borderRadius: '12px',
+        margin: '2rem auto',
+        maxWidth: '600px',
+        color: '#6b4f3b',
+        textAlign: 'left',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+      }}>
+        <h3 style={{ textAlign: 'center', fontSize: '1.3rem', marginBottom: '1rem' }}>📸 Fotoğraf Nasıl Yüklenir?</h3>
+        <ol style={{ paddingLeft: '1.2rem', lineHeight: '1.8' }}>
+          <li><strong>Adınızı yazın</strong> (isteğe bağlı)</li>
+          <li><strong>Bir veya daha fazla fotoğraf seçin</strong></li>
+          <li><strong>📤 Yükle</strong> butonuna tıklayın</li>
+          <li>Fotoğraf(lar)ınız birkaç saniye içinde galeriye eklenecek</li>
+        </ol>
+        <p style={{
+          marginTop: '1rem',
+          fontStyle: 'italic',
+          fontSize: '0.95rem',
+          textAlign: 'center'
+        }}>
+          💖 “Her kare bir hatıra, her yükleme bir tebessüm...”
+        </p>
+      </div>
 
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <input
@@ -192,9 +191,9 @@ Her kare, sevgiyle dolu bir anı…”
             display: 'inline-block',
             padding: '12px 16px',
             backgroundColor: '#fff0f5',
-            border: '2px dashed #ffb6c1',
+            border: '2px dashed #d4a373',
             borderRadius: '12px',
-            color: '#b76e79',
+            color: '#6b4f3b',
             fontWeight: 'bold',
             cursor: 'pointer',
             transition: 'all 0.3s ease-in-out',
@@ -203,7 +202,7 @@ Her kare, sevgiyle dolu bir anı…”
         />
         <button onClick={handleUpload} style={{
           marginLeft: '1rem',
-          backgroundColor: '#ffb6c1',
+          backgroundColor: '#d4a373',
           color: 'white',
           border: 'none',
           padding: '10px 16px',
@@ -243,7 +242,7 @@ Her kare, sevgiyle dolu bir anı…”
                 fontStyle: 'italic',
                 fontSize: '0.9rem',
                 color: '#a56363',
-                backgroundColor: '#fffafc',
+                backgroundColor: '#fffaf3',
                 padding: '0.5rem',
                 borderRadius: '8px',
                 textAlign: 'center',
