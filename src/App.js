@@ -116,7 +116,7 @@ export default function App() {
         marginBottom: '0.2rem',
         fontFamily: "'Alex Brush', cursive"
       }}>
-        Aleyna ❤︎ Enes
+      Aleyna❤︎Enes
       </h1>
 
       <p style={{
