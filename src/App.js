@@ -202,7 +202,7 @@ export default function App() {
   borderRadius: '8px',
   color: '#6b4f3b',
   fontWeight: '500',
-  backgroundColor: '#fffaf3',
+  backgroundColor: '#d4a373',
   transition: '0.2s',
   boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
 }}
