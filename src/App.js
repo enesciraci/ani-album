@@ -164,62 +164,69 @@ export default function App() {
         </p>
       </div>
 
-      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <input
-          type="text"
-          placeholder="Adınız (isteğe bağlı)"
-          value={uploader}
-          onChange={(e) => setUploader(e.target.value)}
-          style={{
-            marginBottom: '1rem',
-            padding: '10px',
-            border: '1px solid #ddd',
-            borderRadius: '8px',
-            width: '80%',
-            maxWidth: '400px',
-            display: 'block',
-            marginInline: 'auto'
-          }}
-        />
-   {/* Dosya inputu (gizli) */}
-<input
-  id="upload-input"
-  type="file"
-  accept="image/*"
-  multiple
-  onChange={handleFileChange}
-  style={{ display: 'none' }}
-/>
-
-{/* Tıklanabilir görsel (input yerine) */}
-<label htmlFor="upload-input" style={{
-  display: 'inline-block',
-  cursor: 'pointer',
-  textAlign: 'center',
-  width: '100%',
-  maxWidth: '400px',
-  margin: '0 auto',
-}}>
-  <img
-    src="https://www.hollteck.co.uk/content/upload-your-information~101.jpg"
-    alt="Yükle"
+<div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+  <input
+    type="text"
+    placeholder="Adınız (isteğe bağlı)"
+    value={uploader}
+    onChange={(e) => setUploader(e.target.value)}
     style={{
-      width: '100%',
+      marginBottom: '1rem',
+      padding: '10px',
+      border: '1px solid #ddd',
+      borderRadius: '8px',
+      width: '80%',
       maxWidth: '400px',
-      height: 'auto',
-      border: '2px dashed #b9916f',
-      borderRadius: '12px',
-      padding: '1rem',
-      backgroundColor: '#fffaf5',
-      boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
+      display: 'block',
+      marginInline: 'auto'
     }}
   />
-</label>
 
-<p style={{ fontSize: '0.8rem', textAlign: 'center', marginTop: '0.5rem', color: '#6b4b3e' }}>
-  Tek seferde en fazla 20 fotoğraf yükleyebilirsiniz.
-    </p>
+  {/* Dosya inputu (gizli) */}
+  <input
+    id="upload-input"
+    type="file"
+    accept="image/*"
+    multiple
+    onChange={handleFileChange}
+    style={{ display: 'none' }}
+  />
 
+  {/* Tıklanabilir görsel (input yerine) */}
+  <label htmlFor="upload-input" style={{
+    display: 'inline-block',
+    cursor: 'pointer',
+    textAlign: 'center',
+    width: '100%',
+    maxWidth: '400px',
+    margin: '0 auto'
+  }}>
+    <img
+      src="https://www.hollteck.co.uk/content/upload-your-information~101.jpg"
+      alt="Yükle"
+      style={{
+        width: '100%',
+        maxWidth: '400px',
+        height: 'auto',
+        border: '2px dashed #b9916f',
+        borderRadius: '12px',
+        padding: '1rem',
+        backgroundColor: '#fffaf5',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
+      }}
+    />
+  </label>
+
+  <p style={{
+    fontSize: '0.8rem',
+    textAlign: 'center',
+    marginTop: '0.5rem',
+    color: '#6b4b3e'
+  }}>
+    Tek seferde en fazla 20 fotoğraf yükleyebilirsiniz.
+  </p>
+</div>
+      
     </p>
       {message && <p style={{
         textAlign: 'center',
