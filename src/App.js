@@ -193,15 +193,20 @@ export default function App() {
 </label>
 
 <button onClick={handleUpload} style={{
-  backgroundColor: '#d4a373',
-  color: 'white',
-  border: 'none',
-  padding: '6px 12px',
-  borderRadius: '6px',
-  cursor: 'pointer',
-  fontWeight: '500',
+  display: 'inline-block',
   fontSize: '0.95rem',
-  minWidth: '130px'
+  cursor: 'pointer',
+  padding: '6px 12px',
+  border: '1px dashed #d4a373',
+  borderRadius: '6px',
+  color: '#6b4f3b',
+  fontWeight: '500',
+  backgroundColor: '#fffaf3',
+  transition: '0.2s',
+  boxShadow: 'inset 0 0 0 1px #f3d2b3',
+  marginRight: '0.5rem',
+  minWidth: '130px',
+  textAlign: 'center'
 }}>
   📤 Yükle
 </button>
