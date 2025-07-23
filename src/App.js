@@ -138,29 +138,29 @@ export default function App() {
 
       <div style={{
         backgroundColor: '#fffaf3',
-        border: '2px dashed #d4a373',
-        padding: '1rem',
-        borderRadius: '12px',
-        margin: '2rem auto',
-        maxWidth: '600px',
+        border: '1px dashed #d4a373',
+        padding: '0.75rem',
+        borderRadius: '10px',
+        margin: '1.5rem auto',
+        maxWidth: '500px',
+        fontSize: '0.85rem',
         color: '#6b4f3b',
         textAlign: 'left',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.05)'
+        boxShadow: '0 1px 4px rgba(0,0,0,0.03)'
       }}>
-        <h3 style={{ textAlign: 'center', fontSize: '1.3rem', marginBottom: '1rem' }}>📸 Fotoğraf Nasıl Yüklenir?</h3>
-        <ol style={{ paddingLeft: '1.2rem', lineHeight: '1.8' }}>
-          <li><strong>Adınızı yazın</strong> (isteğe bağlı)</li>
-          <li><strong>Bir veya daha fazla fotoğraf seçin</strong></li>
-          <li><strong>📤 Yükle</strong> butonuna tıklayın</li>
-          <li>Fotoğraf(lar)ınız birkaç saniye içinde galeriye eklenecek</li>
-        </ol>
+        <h3 style={{ textAlign: 'center', fontSize: '1.1rem', marginBottom: '0.5rem' }}>📸 Fotoğraf Yükleme</h3>
+        <ul style={{ paddingLeft: '1rem', lineHeight: '1.5', margin: 0 }}>
+          <li>Adınızı yazın (isteğe bağlı)</li>
+          <li>Fotoğraf(lar)ınızı seçin</li>
+          <li>📤 Yükle butonuna tıklayın</li>
+        </ul>
         <p style={{
-          marginTop: '1rem',
+          marginTop: '0.75rem',
           fontStyle: 'italic',
-          fontSize: '0.95rem',
+          fontSize: '0.8rem',
           textAlign: 'center'
         }}>
-          💖 “Her kare bir hatıra, her yükleme bir tebessüm...”
+          💖 Her kare bir tebessüm...
         </p>
       </div>
 
