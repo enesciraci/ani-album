@@ -90,22 +90,22 @@ export default function App() {
   ];
 
   return (
-    <div style={{
-      backgroundColor: '#fdfaf6',
-      minHeight: '100vh',
-      padding: '2rem',
-      fontFamily: "'Quicksand', sans-serif",
-      color: '#4a3b2c',
-    }}>
-<div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+<div style={{
+  textAlign: 'center',
+  marginTop: '1rem',
+  marginBottom: '2rem'
+}}>
   <img
-    src="/nisan.png"
+    src="/header/nisan.png"
     alt="Aleyna ve Enes"
     style={{
-      maxWidth: '100%',
+      maxHeight: '140px',
       height: 'auto',
-      borderRadius: '16px',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+      width: 'auto',
+      objectFit: 'contain',
+      border: 'none',
+      boxShadow: 'none',
+      borderRadius: '0'
     }}
   />
   <p style={{
