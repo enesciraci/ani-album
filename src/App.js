@@ -97,18 +97,26 @@ export default function App() {
       fontFamily: "'Quicksand', sans-serif",
       color: '#4a3b2c',
     }}>
-      <div style={{
-        textAlign: 'center',
-        fontSize: '0.9rem',
-        backgroundColor: '#f3e9e4',
-        padding: '0.5rem',
-        borderRadius: '6px',
-        marginBottom: '1rem',
-        color: '#6b4f3b',
-        fontWeight: 'bold'
-      }}>
-        💞 14 Eylül 2025 • Paşa Garden
-      </div>
+<div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+  <img
+    src="/header/nisan.png"
+    alt="Aleyna ve Enes"
+    style={{
+      maxWidth: '100%',
+      height: 'auto',
+      borderRadius: '16px',
+      boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+    }}
+  />
+  <p style={{
+    marginTop: '0.5rem',
+    fontSize: '0.95rem',
+    fontStyle: 'italic',
+    color: '#7a5c5c'
+  }}>
+    💞 14 Eylül 2025 • Paşa Garden
+  </p>
+</div>
 
       <h1 style={{
         textAlign: 'center',
