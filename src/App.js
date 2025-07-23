@@ -99,7 +99,7 @@ export default function App() {
     }}>
 <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
   <img
-    src="/header/nisan.png"
+    src="/nisan.png"
     alt="Aleyna ve Enes"
     style={{
       maxWidth: '100%',
