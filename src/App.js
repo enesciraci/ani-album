@@ -181,39 +181,44 @@ export default function App() {
             marginInline: 'auto'
           }}
         />
-        <input
-          id="upload-input"
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleFileChange}
-          style={{
-            display: 'inline-block',
-            padding: '12px 16px',
-            backgroundColor: '#fff0f5',
-            border: '2px dashed #d4a373',
-            borderRadius: '12px',
-            color: '#6b4f3b',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            transition: 'all 0.3s ease-in-out',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-          }}
-        />
-        <button onClick={handleUpload} style={{
-          marginLeft: '1rem',
-          backgroundColor: '#d4a373',
-          color: 'white',
-          border: 'none',
-          padding: '10px 16px',
-          borderRadius: '8px',
-          cursor: 'pointer',
-          fontWeight: 'bold',
-        }}>
-          📤 Yükle
-        </button>
-      </div>
+   {/* Dosya inputu (gizli) */}
+<input
+  id="upload-input"
+  type="file"
+  accept="image/*"
+  multiple
+  onChange={handleFileChange}
+  style={{ display: 'none' }}
+/>
 
+{/* Tıklanabilir görsel (input yerine) */}
+<label htmlFor="upload-input" style={{
+  display: 'inline-block',
+  cursor: 'pointer',
+  textAlign: 'center',
+  width: '100%',
+  maxWidth: '400px',
+  margin: '0 auto',
+}}>
+  <img
+    src="https://www.hollteck.co.uk/content/upload-your-information~101.jpg"
+    alt="Yükle"
+    style={{
+      width: '100%',
+      maxWidth: '400px',
+      height: 'auto',
+      border: '2px dashed #b9916f',
+      borderRadius: '12px',
+      padding: '1rem',
+      backgroundColor: '#fffaf5',
+      boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
+    }}
+  />
+</label>
+
+<p style={{ fontSize: '0.8rem', textAlign: 'center', marginTop: '0.5rem', color: '#6b4b3e' }}>
+  Tek seferde en fazla 20 fotoğraf yükleyebilirsiniz.
+</p>
       {message && <p style={{
         textAlign: 'center',
         fontWeight: 'bold',
