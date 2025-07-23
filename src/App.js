@@ -91,30 +91,39 @@ export default function App() {
 
   return (
     <div>
+      {/* Başlık görseli */}
       <div style={{ textAlign: 'center', marginTop: '1rem' }}>
         <img
           src="/nisan.png"
           alt="Aleyna ve Enes"
           style={{
-            maxHeight: '120px',
-            height: 'auto',
-            width: 'auto',
+            maxHeight: '100px',
             objectFit: 'contain',
             border: 'none',
             boxShadow: 'none',
             borderRadius: '0',
-            marginBottom: '0.5rem'
+            marginBottom: '0.25rem'
           }}
+        />
+        <p style={{
+          fontSize: '0.9rem',
+          fontStyle: 'italic',
+          color: '#7a5c5c',
+          marginTop: '0.25rem'
+        }}>
+          💞 14 Eylül 2025 • Paşa Garden
+        </p>
       </div>
 
+      {/* Sayfa başlığı */}
       <h1 style={{
         textAlign: 'center',
-        fontSize: '2.4rem',
+        fontSize: '2.8rem',
         color: '#6b4f3b',
         marginBottom: '0.5rem',
         fontFamily: "'Alex Brush', cursive"
       }}>
-         Aleyna💍Enes
+        Aleyna 💍 Enes
       </h1>
 
       <p style={{
@@ -133,6 +142,7 @@ export default function App() {
         Her kare, sevgiyle dolu bir anı…”
       </p>
 
+      {/* Fotoğraf yükleme alanı */}
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
         <input
           type="text"
@@ -199,6 +209,7 @@ export default function App() {
         color: message.includes('başarı') ? '#28a745' : '#c0392b'
       }}>{message}</p>}
 
+      {/* Albüm başlığı */}
       <h2 style={{
         fontFamily: "'Alex Brush', cursive",
         fontSize: '1.8rem',
@@ -207,6 +218,7 @@ export default function App() {
         marginTop: '3rem'
       }}>💞 Kalpten Kareler</h2>
 
+      {/* Galeri */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
@@ -253,6 +265,7 @@ export default function App() {
         ))}
       </div>
 
+      {/* Büyütülmüş görüntü */}
       {selectedImage && (
         <div style={{
           position: 'fixed',
@@ -278,6 +291,7 @@ export default function App() {
         </div>
       )}
 
+      {/* Alt metin */}
       <div style={{
         marginTop: '3rem',
         textAlign: 'center',
