@@ -96,7 +96,7 @@ export default function App() {
   marginBottom: '2rem'
 }}>
   <img
-    src="/header/nisan.png"
+    src="/nisan.png"
     alt="Aleyna ve Enes"
     style={{
       maxHeight: '140px',
@@ -108,6 +108,8 @@ export default function App() {
       borderRadius: '0'
     }}
   />
+    </div>
+    
   <p style={{
     marginTop: '0.5rem',
     fontSize: '0.95rem',
