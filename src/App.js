@@ -120,7 +120,7 @@ export default function App() {
         </p>
       </div>
 
-      {/* Seçilen fotoğraf ön izlemeleri */}
+      {/* Seçilen fotoğraf önizleme */}
       {selectedFiles.length > 0 && (
         <div style={{
           display: 'flex',
@@ -160,7 +160,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Yükleme formu */}
+      {/* Yükleme kutusu */}
       <div style={{
         maxWidth: '500px',
         margin: '0 auto',
@@ -176,30 +176,28 @@ export default function App() {
           placeholder="Adınız (isteğe bağlı)"
           value={uploader}
           onChange={(e) => setUploader(e.target.value)}
-            style={{
-    marginBottom: '1rem',
-    padding: '10px 12px',
-    border: '1px solid #ccc',
-    borderRadius: '8px',
-    width: 'calc(100% - 24px)',
-    fontSize: '1rem',
-    boxSizing: 'border-box'
-  }}
+          style={{
+            marginBottom: '1rem',
+            padding: '10px 12px',
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            width: '100%',
+            fontSize: '1rem'
+          }}
         />
         <input
           type="text"
           placeholder="Anı notu (isteğe bağlı)"
           value={caption}
           onChange={(e) => setCaption(e.target.value)}
-            style={{
-    marginBottom: '1rem',
-    padding: '10px 12px',
-    border: '1px solid #ccc',
-    borderRadius: '8px',
-    width: 'calc(100% - 24px)',
-    fontSize: '1rem',
-    boxSizing: 'border-box'
-  }}
+          style={{
+            marginBottom: '1rem',
+            padding: '10px 12px',
+            border: '1px solid #ccc',
+            borderRadius: '8px',
+            width: '100%',
+            fontSize: '1rem'
+          }}
         />
         <input
           id="upload-input"
@@ -225,7 +223,11 @@ export default function App() {
           borderRadius: '6px',
           cursor: 'pointer'
         }}>📤 Yükle</button>
-        {message && <p style={{ marginTop: '1rem', fontWeight: 'bold', color: message.includes('başarı') ? '#28a745' : '#c0392b' }}>{message}</p>}
+        {message && <p style={{
+          marginTop: '1rem',
+          fontWeight: 'bold',
+          color: message.includes('başarı') ? '#28a745' : '#c0392b'
+        }}>{message}</p>}
       </div>
 
       {/* Galeri */}
@@ -266,7 +268,7 @@ export default function App() {
           alignItems: 'center',
           justifyContent: 'center',
           zIndex: 9999,
-          flexDirection: 'column',
+          flexDirection: 'column'
         }}>
           <img src={selectedImage} alt="Büyütülmüş" style={{
             maxWidth: '90%',
@@ -275,17 +277,17 @@ export default function App() {
             marginBottom: '1rem',
             boxShadow: '0 0 15px rgba(255,255,255,0.8)'
           }} />
-          <p style={{
+          {selectedCaption && <p style={{
             color: '#fff',
             fontStyle: 'italic',
             fontSize: '1rem',
             maxWidth: '80%',
             textAlign: 'center'
-          }}>{selectedCaption}</p>
+          }}>{selectedCaption}</p>}
         </div>
       )}
 
-      {/* Alt yazı */}
+      {/* Alt Yazı */}
       <div style={{
         textAlign: 'center',
         marginTop: '3rem',
