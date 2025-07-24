@@ -17,47 +17,48 @@ export default function App() {
     setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleUpload = async () => {
-    if (selectedFiles.length === 0) {
-      setMessage('Lütfen fotoğraf seçin.');
+const handleUpload = async () => {
+  if (selectedFiles.length === 0) {
+    setMessage('Lütfen fotoğraf seçin.');
+    return;
+  }
+
+  setMessage('Yükleniyor...');
+  const name = uploader || 'Anonim'; // 👈 Eklenen satır
+
+  for (const file of selectedFiles) {
+    const formData = new FormData();
+    formData.append('UPLOADCARE_PUB_KEY', UPLOADCARE_PUBLIC_KEY);
+    formData.append('UPLOADCARE_STORE', '1');
+    formData.append('file', file);
+
+    try {
+      const res = await fetch('https://upload.uploadcare.com/base/', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (data.file) {
+        const imageUrl = `https://ucarecdn.com/${data.file}/`;
+        setGallery((prev) => [
+          { image_url: imageUrl, uploader_name: name }, // 👈 Düzenlenen yer
+          ...prev,
+        ]);
+      }
+    } catch (err) {
+      console.error('Yükleme hatası:', err);
+      setMessage('Yükleme sırasında hata oluştu.');
       return;
     }
+  }
 
-    setMessage('Yükleniyor...');
-
-    for (const file of selectedFiles) {
-      const formData = new FormData();
-      formData.append('UPLOADCARE_PUB_KEY', UPLOADCARE_PUBLIC_KEY);
-      formData.append('UPLOADCARE_STORE', '1');
-      formData.append('file', file);
-
-      try {
-        const res = await fetch('https://upload.uploadcare.com/base/', {
-          method: 'POST',
-          body: formData,
-        });
-
-        const data = await res.json();
-
-        if (data.file) {
-          const imageUrl = `https://ucarecdn.com/${data.file}/`;
-          setGallery((prev) => [
-            { image_url: imageUrl, uploader_name: uploader || 'Anonim' },
-            ...prev,
-          ]);
-        }
-      } catch (err) {
-        console.error('Yükleme hatası:', err);
-        setMessage('Yükleme sırasında hata oluştu.');
-        return;
-      }
-    }
-
-    setMessage('Tüm fotoğraflar başarıyla yüklendi!');
-    setSelectedFiles([]);
-    setUploader('');
-    document.getElementById('upload-input').value = '';
-  };
+  setMessage('Tüm fotoğraflar başarıyla yüklendi!');
+  setSelectedFiles([]);
+  setUploader('');
+  document.getElementById('upload-input').value = '';
+};
 
   const fetchGallery = async () => {
     try {
