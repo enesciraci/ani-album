@@ -243,7 +243,7 @@ style={{
         fontSize: '1.8rem',
         textAlign: 'center',
         color: '#6b4f3b',
-        marginTop: '-2rem'
+        marginTop: '1 rem'
       }}>⁠❥ Kalpten Kareler</h2>
 
       {/* Galeri */}
