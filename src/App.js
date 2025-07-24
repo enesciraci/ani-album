@@ -236,33 +236,65 @@ style={{
           onChange={handleFileChange}
           style={{ display: 'none' }}
         />
-        <label htmlFor="upload-input" style={{
-   display: 'flex',
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexWrap: 'wrap',
+  gap: '1rem',
+  marginTop: '1rem'
+}}>
+  <label htmlFor="upload-input" style={{
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     width: '120px',
     padding: '6px 12px',
-          backgroundColor: '#fffaf3',
-          border: '1px dashed #d4a373',
-          borderRadius: '6px',
-           cursor: 'pointer',
-    fontSize: '1rem',
-    fontWeight: '500'
-        }}>🖼️ Fotoğrafları Seç</label>
-        <button onClick={handleUpload} style={{
-             display: 'flex',
+    backgroundColor: '#fffaf3',
+    border: '1px dashed #d4a373',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    fontSize: '0.95rem',
+    fontWeight: '500',
+    color: '#6b4f3b',
+    textAlign: 'center',
+    whiteSpace: 'nowrap'
+  }}>
+    🖼️ Fotoğraf Seç
+  </label>
+
+  <button onClick={handleUpload} style={{
+    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     width: '120px',
     padding: '6px 12px',
-          backgroundColor: '#fffaf3',
-          border: '1px dashed #d4a373',
-          borderRadius: '6px',
-              cursor: 'pointer',
-    fontSize: '1rem',
-    fontWeight: '500'
-        }}>📤 Yükle</button>
-        {message && <p style={{ marginTop: '1rem', fontWeight: 'bold', color: message.includes('başarı') ? '#28a745' : '#c0392b' }}>{message}</p>}
+    backgroundColor: '#fffaf3',
+    border: '1px dashed #d4a373',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    fontSize: '0.95rem',
+    fontWeight: '500',
+    color: '#6b4f3b',
+    textAlign: 'center',
+    whiteSpace: 'nowrap'
+  }}>
+    📤 Yükle
+  </button>
+</div>
+
+{/* Yükleme mesajı */}
+{message && (
+  <p style={{
+    marginTop: '1rem',
+    fontWeight: 'bold',
+    color: message.includes('başarı') ? '#28a745' : '#c0392b',
+    textAlign: 'center'
+  }}>
+    {message}
+  </p>
+)}
+
       </div>
       {/* Albüm başlığı */}
       <h2 style={{
