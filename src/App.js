@@ -120,7 +120,7 @@ export default function App() {
         </p>
       </div>
 
-      {/* Seçilen fotoğraf önizleme */}
+      {/* Seçilen fotoğraf ön izlemeleri */}
       {selectedFiles.length > 0 && (
         <div style={{
           display: 'flex',
@@ -160,44 +160,46 @@ export default function App() {
         </div>
       )}
 
-      {/* Yükleme kutusu */}
+      {/* Yükleme formu */}
       <div style={{
-        maxWidth: '500px',
-        margin: '0 auto',
-        backgroundColor: '#fff8f2',
-        border: '1px solid #e7c7aa',
-        borderRadius: '12px',
-        padding: '1.5rem',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
-        textAlign: 'center'
+  maxWidth: '600px',
+  margin: '1.5rem auto',
+  backgroundColor: '#f6efe7',
+  border: '1px solid #e3c5a8',
+  borderRadius: '12px',
+  padding: '2rem',
+  boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
+  textAlign: 'center'
       }}>
         <input
           type="text"
           placeholder="Adınız (isteğe bağlı)"
           value={uploader}
           onChange={(e) => setUploader(e.target.value)}
-          style={{
-            marginBottom: '1rem',
-            padding: '10px 12px',
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            width: '100%',
-            fontSize: '1rem'
-          }}
+            style={{
+    marginBottom: '1rem',
+    padding: '10px 12px',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    width: 'calc(100% - 24px)',
+    fontSize: '1rem',
+    boxSizing: 'border-box'
+  }}
         />
         <input
           type="text"
           placeholder="Anı notu (isteğe bağlı)"
           value={caption}
           onChange={(e) => setCaption(e.target.value)}
-          style={{
-            marginBottom: '1rem',
-            padding: '10px 12px',
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            width: '100%',
-            fontSize: '1rem'
-          }}
+            style={{
+    marginBottom: '1rem',
+    padding: '10px 12px',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    width: 'calc(100% - 24px)',
+    fontSize: '1rem',
+    boxSizing: 'border-box'
+  }}
         />
         <input
           id="upload-input"
@@ -223,11 +225,7 @@ export default function App() {
           borderRadius: '6px',
           cursor: 'pointer'
         }}>📤 Yükle</button>
-        {message && <p style={{
-          marginTop: '1rem',
-          fontWeight: 'bold',
-          color: message.includes('başarı') ? '#28a745' : '#c0392b'
-        }}>{message}</p>}
+        {message && <p style={{ marginTop: '1rem', fontWeight: 'bold', color: message.includes('başarı') ? '#28a745' : '#c0392b' }}>{message}</p>}
       </div>
 
       {/* Galeri */}
@@ -268,7 +266,7 @@ export default function App() {
           alignItems: 'center',
           justifyContent: 'center',
           zIndex: 9999,
-          flexDirection: 'column'
+          flexDirection: 'column',
         }}>
           <img src={selectedImage} alt="Büyütülmüş" style={{
             maxWidth: '90%',
@@ -277,17 +275,17 @@ export default function App() {
             marginBottom: '1rem',
             boxShadow: '0 0 15px rgba(255,255,255,0.8)'
           }} />
-          {selectedCaption && <p style={{
+          <p style={{
             color: '#fff',
             fontStyle: 'italic',
             fontSize: '1rem',
             maxWidth: '80%',
             textAlign: 'center'
-          }}>{selectedCaption}</p>}
+          }}>{selectedCaption}</p>
         </div>
       )}
 
-      {/* Alt Yazı */}
+      {/* Alt yazı */}
       <div style={{
         textAlign: 'center',
         marginTop: '3rem',
