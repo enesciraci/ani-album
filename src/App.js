@@ -184,7 +184,7 @@ style={{
   width: 'calc(100% - 24px)',
   fontSize: '1rem',
   boxSizing: 'border-box',
-  backgroundColor: '#fef3e3',      // 🍯 açık bal rengi tonu
+  backgroundColor: '#fffaf3',      // 🍯 açık bal rengi tonu
   color: '#6b4f3b',                // Yazı rengi uyumlu kahverengi
   fontWeight: '500',
   outline: 'none',
@@ -204,7 +204,7 @@ style={{
   width: 'calc(100% - 24px)',
   fontSize: '1rem',
   boxSizing: 'border-box',
-  backgroundColor: '#fef3e3',      // 🍯 açık bal rengi tonu
+  backgroundColor: '#fffaf3',      // 🍯 açık bal rengi tonu
   color: '#6b4f3b',                // Yazı rengi uyumlu kahverengi
   fontWeight: '500',
   outline: 'none',
@@ -223,14 +223,14 @@ style={{
           display: 'inline-block',
           marginRight: '1rem',
           padding: '8px 16px',
-          backgroundColor: '#fceedd',
+          backgroundColor: '#fffaf3',
           border: '1px dashed #d4a373',
           borderRadius: '6px',
           cursor: 'pointer'
         }}>🖼️ Fotoğrafları Seç</label>
         <button onClick={handleUpload} style={{
           padding: '8px 16px',
-          backgroundColor: '#fceedd',
+          backgroundColor: '#fffaf3',
           border: '1px dashed #d4a373',
           borderRadius: '6px',
           cursor: 'pointer'
