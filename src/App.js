@@ -167,7 +167,6 @@ export default function App() {
   backgroundColor: '#f6efe7',
   padding: '1rem',
   borderLeft: '4px solid #d4a373',
-  border: '1px solid #e3c5a8',
   borderRadius: '12px',
   boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
   textAlign: 'center'
