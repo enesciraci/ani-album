@@ -243,7 +243,7 @@ style={{
         fontSize: '1.8rem',
         textAlign: 'center',
         color: '#6b4f3b',
-        marginTop: '1rem'
+        marginTop: '-2rem'
       }}>⁠❥ Kalpten Kareler</h2>
 
       {/* Galeri */}
@@ -251,7 +251,7 @@ style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
         gap: '1rem',
-        marginTop: '2rem',
+        marginTop: '-2rem',
         padding: '1rem'
       }}>
         {gallery.map((item, i) => (
