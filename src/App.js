@@ -237,20 +237,30 @@ style={{
           style={{ display: 'none' }}
         />
         <label htmlFor="upload-input" style={{
-          display: 'inline-block',
-          marginRight: '1rem',
-          padding: '8px 16px',
+   display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: '160px',
+    padding: '10px 16px',
           backgroundColor: '#fffaf3',
           border: '1px dashed #d4a373',
           borderRadius: '6px',
-          cursor: 'pointer'
+           cursor: 'pointer',
+    fontSize: '1rem',
+    fontWeight: '500'
         }}>🖼️ Fotoğrafları Seç</label>
         <button onClick={handleUpload} style={{
-          padding: '8px 16px',
+             display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: '160px',
+    padding: '10px 16px',
           backgroundColor: '#fffaf3',
           border: '1px dashed #d4a373',
           borderRadius: '6px',
-          cursor: 'pointer'
+              cursor: 'pointer',
+    fontSize: '1rem',
+    fontWeight: '500'
         }}>📤 Yükle</button>
         {message && <p style={{ marginTop: '1rem', fontWeight: 'bold', color: message.includes('başarı') ? '#28a745' : '#c0392b' }}>{message}</p>}
       </div>
