@@ -163,7 +163,7 @@ export default function App() {
       {/* Yükleme formu */}
       <div style={{
   maxWidth: '600px',
-  margin: '1.5rem auto',
+  margin: '0 auto',
   backgroundColor: '#f6efe7',
   padding: '1rem',
   borderLeft: '4px solid #d4a373',
