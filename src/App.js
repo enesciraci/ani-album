@@ -237,6 +237,14 @@ style={{
         }}>📤 Yükle</button>
         {message && <p style={{ marginTop: '1rem', fontWeight: 'bold', color: message.includes('başarı') ? '#28a745' : '#c0392b' }}>{message}</p>}
       </div>
+      {/* Albüm başlığı */}
+      <h2 style={{
+        fontFamily: "'Alex Brush', cursive",
+        fontSize: '1.8rem',
+        textAlign: 'center',
+        color: '#6b4f3b',
+        marginTop: '1rem'
+      }}>⁠❥ Kalpten Kareler</h2>
 
       {/* Galeri */}
       <div style={{
