@@ -113,7 +113,8 @@ export default function App() {
           backgroundColor: '#f6efe7',
           padding: '1rem',
           borderLeft: '4px solid #d4a373',
-          borderRadius: '8px'
+          borderRadius: '8px',
+          marginTop: '-8px'  
         }}>
           “Bu özel günü birlikte ölümsüzleştirelim.”
         </p>
