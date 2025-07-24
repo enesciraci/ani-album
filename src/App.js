@@ -175,14 +175,30 @@ export default function App() {
           placeholder="Adınız (isteğe bağlı)"
           value={uploader}
           onChange={(e) => setUploader(e.target.value)}
-          style={{ marginBottom: '1rem', padding: '10px', borderRadius: '8px', width: '100%' }}
+            style={{
+    marginBottom: '1rem',
+    padding: '10px 12px',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    width: 'calc(100% - 24px)',
+    fontSize: '1rem',
+    boxSizing: 'border-box'
+  }}
         />
         <input
           type="text"
           placeholder="Anı notu (isteğe bağlı)"
           value={caption}
           onChange={(e) => setCaption(e.target.value)}
-          style={{ marginBottom: '1rem', padding: '10px', borderRadius: '8px', width: '100%' }}
+            style={{
+    marginBottom: '1rem',
+    padding: '10px 12px',
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    width: 'calc(100% - 24px)',
+    fontSize: '1rem',
+    boxSizing: 'border-box'
+  }}
         />
         <input
           id="upload-input"
