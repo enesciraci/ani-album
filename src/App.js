@@ -131,7 +131,7 @@ const fetchGallery = async () => {
           padding: '1rem',
           borderLeft: '4px solid #d4a373',
           borderRadius: '8px',
-          marginTop: '-8px'  
+          marginTop: '1rem'  
         }}>
           “Bu özel günü birlikte ölümsüzleştirelim.”
         </p>
