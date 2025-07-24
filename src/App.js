@@ -176,30 +176,40 @@ export default function App() {
           placeholder="Adınız (isteğe bağlı)"
           value={uploader}
           onChange={(e) => setUploader(e.target.value)}
-            style={{
-    marginBottom: '1rem',
-    padding: '10px 12px',
-    border: '1px solid #ccc',
-    borderRadius: '8px',
-    width: 'calc(100% - 24px)',
-    fontSize: '1rem',
-    boxSizing: 'border-box'
-  }}
+style={{
+  marginBottom: '1rem',
+  padding: '10px 12px',
+  border: '1px solid #e3c5a8',
+  borderRadius: '8px',
+  width: 'calc(100% - 24px)',
+  fontSize: '1rem',
+  boxSizing: 'border-box',
+  backgroundColor: '#fef3e3',      // 🍯 açık bal rengi tonu
+  color: '#6b4f3b',                // Yazı rengi uyumlu kahverengi
+  fontWeight: '500',
+  outline: 'none',
+  transition: '0.3s',
+}}
         />
         <input
           type="text"
           placeholder="Anı notu (isteğe bağlı)"
           value={caption}
           onChange={(e) => setCaption(e.target.value)}
-            style={{
-    marginBottom: '1rem',
-    padding: '10px 12px',
-    border: '1px solid #ccc',
-    borderRadius: '8px',
-    width: 'calc(100% - 24px)',
-    fontSize: '1rem',
-    boxSizing: 'border-box'
-  }}
+style={{
+  marginBottom: '1rem',
+  padding: '10px 12px',
+  border: '1px solid #e3c5a8',
+  borderRadius: '8px',
+  width: 'calc(100% - 24px)',
+  fontSize: '1rem',
+  boxSizing: 'border-box',
+  backgroundColor: '#fef3e3',      // 🍯 açık bal rengi tonu
+  color: '#6b4f3b',                // Yazı rengi uyumlu kahverengi
+  fontWeight: '500',
+  outline: 'none',
+  transition: '0.3s',
+}}
         />
         <input
           id="upload-input"
