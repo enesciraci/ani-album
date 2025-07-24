@@ -35,6 +35,10 @@ export default function App() {
       formData.append('UPLOADCARE_STORE', '1');
       formData.append('file', file);
 
+      // Ad ve anı notunu metadata olarak ekle
+formData.append('metadata[uploader_name]', name);
+formData.append('metadata[caption]', note);
+
       try {
         const res = await fetch('https://upload.uploadcare.com/base/', {
           method: 'POST',
@@ -64,29 +68,42 @@ export default function App() {
     document.getElementById('upload-input').value = '';
   };
 
-  const fetchGallery = async () => {
-    try {
-      const res = await fetch('https://api.uploadcare.com/files/?ordering=-datetime_uploaded', {
-        headers: {
-          Accept: 'application/vnd.uploadcare-v0.7+json',
-          Authorization: 'Uploadcare.Simple 11bc1127d609268ba8b8:a9174c05c67b00d287c5',
-        },
-      });
+const fetchGallery = async () => {
+  try {
+    const res = await fetch('https://api.uploadcare.com/files/?ordering=-datetime_uploaded', {
+      headers: {
+        Accept: 'application/vnd.uploadcare-v0.7+json',
+        Authorization: 'Uploadcare.Simple 11bc1127d609268ba8b8:a9174c05c67b00d287c5',
+      },
+    });
 
-      const data = await res.json();
-      const urls = data.results
+    const data = await res.json();
+
+    // Her görsel için metadata detayını çek
+    const items = await Promise.all(
+      data.results
         .filter((file) => file.is_image && file.is_ready)
-        .map((file) => ({
-          image_url: `https://ucarecdn.com/${file.uuid}/`,
-          uploader_name: 'Anonim',
-          caption: '',
-        }));
+        .map(async (file) => {
+          const fileDetails = await fetch(`https://api.uploadcare.com/files/${file.uuid}/`, {
+            headers: {
+              Accept: 'application/vnd.uploadcare-v0.7+json',
+              Authorization: 'Uploadcare.Simple 11bc1127d609268ba8b8:a9174c05c67b00d287c5',
+            },
+          }).then(res => res.json());
 
-      setGallery(urls);
-    } catch (err) {
-      console.error('Uploadcare galeri alınamadı:', err);
-    }
-  };
+          return {
+            image_url: `https://ucarecdn.com/${file.uuid}/`,
+            uploader_name: fileDetails.metadata?.uploader_name || 'Anonim',
+            caption: fileDetails.metadata?.caption || '',
+          };
+        })
+    );
+
+    setGallery(items);
+  } catch (err) {
+    console.error('Uploadcare galeri alınamadı:', err);
+  }
+};
 
   useEffect(() => {
     fetchGallery();
