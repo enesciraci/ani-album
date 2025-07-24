@@ -115,7 +115,7 @@ export default function App() {
           borderLeft: '4px solid #d4a373',
           borderRadius: '8px'
         }}>
-          “Bu özel günde attığımız ilk adımı sizlerle paylaşmak bizim için çok kıymetli. Her kare, sevgiyle dolu bir anı…”
+          “Bu özel günü birlikte ölümsüzleştirelim.”
         </p>
       </div>
 
