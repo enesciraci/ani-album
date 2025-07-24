@@ -165,9 +165,10 @@ export default function App() {
   maxWidth: '600px',
   margin: '1.5rem auto',
   backgroundColor: '#f6efe7',
+  padding: '1rem',
+  borderLeft: '4px solid #d4a373',
   border: '1px solid #e3c5a8',
   borderRadius: '12px',
-  padding: '2rem',
   boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
   textAlign: 'center'
       }}>
