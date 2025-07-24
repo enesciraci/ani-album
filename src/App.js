@@ -118,7 +118,7 @@ const fetchGallery = async () => {
           fontFamily: "'Alex Brush', cursive",
           fontSize: '2.8rem',
           color: '#6b4f3b',
-          marginTop: '-8px',
+          marginTop: '0.4rem',
         }}>
           Aleyna❤︎Enes
         </h1>
@@ -131,7 +131,7 @@ const fetchGallery = async () => {
           padding: '1rem',
           borderLeft: '4px solid #d4a373',
           borderRadius: '8px',
-          marginTop: '1rem'  
+          marginTop: '0'  
         }}>
           “Bu özel günü birlikte ölümsüzleştirelim.”
         </p>
